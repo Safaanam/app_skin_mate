@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_date_pickers: ^0.2.4
+  flutter_secure_storage: ^4.2.0
   shared_preferences: ^2.0.5
   dio: ^4.0.0
   http: ^0.13.3
@@ -56,6 +58,7 @@ flutter:
   assets:
     - assets/images/
     - assets/Profile_Images/
+    - assets/user_Profile/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

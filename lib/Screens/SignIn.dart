@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:app_skin_mate/Screens/ForgotPw.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:app_skin_mate/Screens/signupscreen.dart';
+import 'package:app_skin_mate/models/Services.dart';
 import 'package:app_skin_mate/models/local_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -14,9 +16,14 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final storage = FlutterSecureStorage();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool _passwordVisible = true;
   var code;
+  var token;
+  var cust_id;
+  var savedToken;
+  var savedCustId;
   bool ignoring = false;
   bool _isfilled = false;
   bool biometricsAvailable = true;
@@ -43,6 +50,7 @@ class _SignInPageState extends State<SignInPage> {
   void initState() {
     _passwordVisible = true;
     super.initState();
+    //getCustomer();
     _idController.addListener(() {
       setState(() {}); // setState every time text changes
     });
@@ -280,12 +288,13 @@ class _SignInPageState extends State<SignInPage> {
     print("JSON DATA: ${mapeddata}");
     http.Response response = await http.post(APIURL, body: mapeddata);
     var data = jsonDecode(response.body);
-    print("DATA: ${data}");
+    //print("DATA: ${data}");
+    await storage.write(key: "token", value: data['token']);
+    await storage.write(key: "cust_id", value: data['customerId']);
     var code = (data['Code']);
-    if(code == 200)
+     if(code == 200)
     {
-      print('valid');
-      Navigator.push(context, MaterialPageRoute(builder: (_) => homePage()));
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => homePage()), (route) => false);
     }
     else {
       final snackBar = SnackBar(

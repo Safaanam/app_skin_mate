@@ -1,35 +1,46 @@
-class Services {
-  String serviceName;
-  String serviceImageUrl;
-  String RouteName;
+import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 
-  Services({
-    this.serviceName,
-    this.serviceImageUrl,
-    this.RouteName,
-  });
+final storage = FlutterSecureStorage();
+class Services {
+  var serviceId;
+  var serviceType;
+
+  Services({this.serviceId, this.serviceType});
+
+   factory Services.fromJson(Map<String, dynamic> json) {
+     return Services(
+         serviceId: json['serviceId'],
+         serviceType: json['serviceType'],
+     );
+   }
 }
 
-final List<Services> services = [
-  Services(
-    serviceName: 'Telehealth Video Visits',
-    serviceImageUrl: 'assets/images/service1.png',
-    RouteName: '',
-  ),
-  Services(
-    serviceName: 'Medical',
-    serviceImageUrl: 'assets/images/service2.png',
-    RouteName: '',
-  ),
-  Services(
-    serviceName: 'Cosmetic Appointment'
-          '\nBotox, Fillers, and other',
-    serviceImageUrl: 'assets/images/service3.png',
-    RouteName: '',
-  ),
-  Services(
-    serviceName: 'Skin Care Center',
-    serviceImageUrl: 'assets/images/service4.png',
-    RouteName: '',
-  ),
-];
+
+Future<List<Services>> fetchServices() async {
+  String token = await storage.read(key: "token");
+  List<Services> list;
+
+  final response = await http.get(
+      Uri.parse('http://65.0.55.180/secured/skinmate/v1.0/service/list'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      });
+ var ConvertedData = jsonDecode(response.body);
+ var code = (ConvertedData[0]['Code']);
+ var rest = ConvertedData[0]["responseInformation"] as List;
+
+  if (token != null) {
+
+    if(code == 200){
+      list = rest.map<Services>((json) => Services.fromJson(json)).toList();
+      return list;
+    }
+  }
+  else {
+    print("error in token");
+  }
+
+}

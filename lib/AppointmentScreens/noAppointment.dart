@@ -1,4 +1,6 @@
+import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
 import 'package:flutter/material.dart';
+
 
 class NoAppointment extends StatefulWidget {
   @override
@@ -11,13 +13,13 @@ class _NoAppointmentState extends State<NoAppointment> {
     return Scaffold(
       backgroundColor: Color(0xffFFFFFF),
       body: Container(
-        width: 375.0,
+        width: MediaQuery.of(context).size.width,
         height: 812.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left:10.0,top: 50.0),
+              padding: const EdgeInsets.only(left:20.0,top: 60.0),
                 child: Container(
                     width: 154.0,
                     height: 120,
@@ -32,12 +34,12 @@ class _NoAppointmentState extends State<NoAppointment> {
                 ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 125.0),
+              padding: const EdgeInsets.only(top: 40.0),
               child: Center(
                 child: Container(
                     width: 255.0,
                     height: 224.0,
-                    child: Image.asset('assets/images/error.png')
+                    child: Image.asset('assets/user_Profile/no_Appointment.png')
                 ),
               ),
             ),
@@ -76,7 +78,9 @@ class _NoAppointmentState extends State<NoAppointment> {
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
                     textColor: Color(0xffFFFFFF),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => scheduleAppoitment()));
+                    },
                   ),
                 ),
               ),

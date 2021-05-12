@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
 import 'package:app_skin_mate/Screens/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,12 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       home: WelcomeScreen(),
+      routes: <String, WidgetBuilder>{
+        // When navigating to the "/" route, build the FirstScreen widget.
+        //'/': (context) => FirstScreen(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/schedule': (BuildContext context) => scheduleAppoitment(),
+      },
     );
   }
 }

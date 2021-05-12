@@ -10,14 +10,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 var emaill;
 TextEditingController _otp = TextEditingController();
 
-getEmail() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  emaill = prefs.getString('email') ?? '';
-}
-
+@override
 void initState() {
   getEmail();
 }
+getEmail() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  emaill = prefs.getString('email') ?? '';
+  print(emaill);
+}
+
 Widget OtpEmailScreen(BuildContext context) {
 
   var code;
@@ -155,8 +157,7 @@ Widget OtpEmailScreen(BuildContext context) {
                           onPressed: () {
                             OtpChecker(context);
                             getEmail();
-                            print(emaill);
-                          },
+                            },
                         ),
                       ),
                     ),
@@ -194,7 +195,7 @@ Future OtpChecker(BuildContext context) async {
   http.Response response = await http.post(APIURL, body: jsonEncode(mapeddata));
   var data = jsonDecode(response.body);
   print("DATA: ${data}");
-  var code = (data['Code']);
+  var code = (data[0]['Code']);
   if (code == 200)
     return EmailSuccessAlert(context);
   else

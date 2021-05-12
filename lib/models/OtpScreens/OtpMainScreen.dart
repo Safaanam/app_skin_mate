@@ -3,9 +3,19 @@ import 'package:app_skin_mate/models/OtpScreens/OtpSuccessScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+
 TextEditingController _otp = TextEditingController();
+var Phonenum;
+void initState() {
+  getSignupValues();
+}
+getSignupValues() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  Phonenum = prefs.getString('PhoneNumber') ?? '';
+}
 Widget OtpScreen(BuildContext context) {
   showModalBottomSheet(
     useRootNavigator: true,
@@ -141,6 +151,7 @@ Widget OtpScreen(BuildContext context) {
                           ),
                           onPressed: () {
                             OtpChecker(context);
+                            getSignupValues();
                           },
                         ),
                       ),
@@ -174,6 +185,7 @@ Future OtpChecker(BuildContext context) async {
       "http://65.0.55.180/skinmate/v1.0/customer/mobile-otp-verify");
   Map mapeddata = {
     'otp': _otp.text,
+    'mobileNumber': Phonenum,
   };
   http.Response response = await http.post(APIURL, body: mapeddata);
   var data = jsonDecode(response.body);

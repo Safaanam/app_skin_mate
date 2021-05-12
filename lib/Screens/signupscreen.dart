@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'package:app_skin_mate/Screens/SignIn.dart';
+import 'package:app_skin_mate/ProfileSetupScreens/SetProfile.dart';
 import 'package:app_skin_mate/models/OtpScreens/OtpMainScreen.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -259,7 +258,6 @@ class _SignupScreenState extends State<SignupScreen> {
                           DuplicateChecker();
                           SavephoneNuM();
                           getSignupValues();
-
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -307,8 +305,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: Color(0xff749BAD)),),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => SignInPage())); //navigate to sigin page
+                      //Navigator.push(
+                      //context, MaterialPageRoute(builder: (_) => SignInPage())); //navigate to sigin page
                     },
                     child: Text(" Sign In", style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -349,15 +347,24 @@ class _SignupScreenState extends State<SignupScreen> {
     http.Response response = await http.post(APIURL, body: mapeddata);
     var data = jsonDecode(response.body);
     var code = (data[0]['Code']);
-    if (code == 205) {
+    var respinfo= (data[0]['responseInformation']);
+    if (code == 200) {
       final snackBar = SnackBar(
         content: Text('Mobile Number or Email is Already Registered'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-    else {
+    else if(code == 205 && respinfo == 1)
+    {
       return OtpScreen(context);
     }
+    else if(code == 205 && respinfo == 2)
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) =>
+          SetProfile()));
+    else
+      return "error";
+
   }
   getSignupValues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
