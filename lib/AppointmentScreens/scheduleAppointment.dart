@@ -10,8 +10,10 @@ class scheduleAppoitment extends StatefulWidget {
 
 class _scheduleAppoitmentState extends State<scheduleAppoitment> {
   List<Service> serve = new List<Service>();
+  List<subServices> subserve = new List<subServices>();
   @override
   void initState() {
+    //getSubService();
     serve.add(new Service("General Meet",'assets/user_Profile/General_Meet.png', false));
     serve.add(new Service("Daily Checkup",'assets/user_Profile/Daily_Checkup.png', false));
   }

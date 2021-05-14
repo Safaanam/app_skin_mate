@@ -36,6 +36,8 @@ class _SignInPageState extends State<SignInPage> {
     if (isAvailable){
       setState(() {
         biometricsAvailable = true;
+        String bio = biometricsAvailable.toString();
+        storage.write(key: "bio", value: bio);
         //notify
       });
     }
@@ -95,59 +97,75 @@ class _SignInPageState extends State<SignInPage> {
                       'Phone Number / Email ID',
                       style: TextStyle( color: Color(0xff02122C),
                           fontFamily: 'Poppins-Medium',
-                          fontSize: 18.0),
+                          fontSize: 12.0),
                     ),
                     SizedBox(height: 10.0),
-                    TextFormField(
-                        controller: _idController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Enter Number or Email ID',),
-                        validator: MultiValidator([
-                          RequiredValidator(errorText: "* Required"),
-                          EmailValidator(errorText: "Enter valid email id"),
-                        ]),
-                        onChanged: (val) {
-                          // setState(() => email = val);
-                        }),
+                    Container(
+                      width: 335,
+                      //height: 44,
+                      child: TextFormField(
+                          controller: _idController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter Number or Email ID',
+                            hintStyle: TextStyle(
+                              color: Color(0xff02122C),
+                              fontSize: 12.0,
+                            ),),
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: "* Required"),
+                            EmailValidator(errorText: "Enter valid email id"),
+                          ]),
+                          onChanged: (val) {
+                            // setState(() => email = val);
+                          }),
+                    ),
                     SizedBox(height: 30.0),
                     Text(
                       'Password',
                       style: TextStyle( color: Color(0xff02122C),
                           fontFamily: 'Poppins-Medium',
-                          fontSize: 18.0),
+                          fontSize: 12.0),
                     ),
                     SizedBox(height: 10.0),
-                    TextFormField(
-                        controller: _pwController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Enter Password',
-                          suffixIcon: IconButton(
-                              icon: Icon(
-                                _passwordVisible
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _passwordVisible ^= true;
-                                  //print("Icon button pressed! state: $_passwordVisible");
-                                });
-                              }),
-                        ),
-                        validator: MultiValidator([
-                          RequiredValidator(errorText: "* Required"),
-                          //MinLengthValidator(6,
-                           //   errorText: "Password should be atleast 6 characters"),
-                          MaxLengthValidator(15,
-                              errorText:
-                              "Password should not be greater than 15 characters")
-                        ]),
-                        obscureText: _passwordVisible,
-                        onChanged: (val) {
-                          // setState(() => password = val);
-                        }),
+                    Container(
+                      width: 335,
+                      //height: 44,
+                      child: TextFormField(
+                          controller: _pwController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter Password',
+                            hintStyle: TextStyle(
+                              color: Color(0xff02122C),
+                              fontSize: 12.0,
+                            ),
+                            suffixIcon: IconButton(
+                                icon: Icon(
+                                  _passwordVisible
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _passwordVisible ^= true;
+                                    //print("Icon button pressed! state: $_passwordVisible");
+                                  });
+                                }),
+                          ),
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: "* Required"),
+                            //MinLengthValidator(6,
+                             //   errorText: "Password should be atleast 6 characters"),
+                            MaxLengthValidator(15,
+                                errorText:
+                                "Password should not be greater than 15 characters")
+                          ]),
+                          obscureText: _passwordVisible,
+                          onChanged: (val) {
+                            // setState(() => password = val);
+                          }),
+                    ),
                     SizedBox(height: 25.0),
                     Align(
                       alignment: Alignment.bottomRight,
@@ -160,7 +178,7 @@ class _SignInPageState extends State<SignInPage> {
                               );
                             },
                           style: TextStyle( fontFamily: 'Poppins-SemiBold',
-                            fontSize: 15.0,
+                            fontSize: 12.0,
                             color: Color(0xff749BAD),
                             fontWeight: FontWeight.bold,
                           ),
@@ -169,8 +187,8 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     SizedBox(height: 50.0),
                     SizedBox(
-                      width: double.infinity,
-                      height: 60.0,
+                      width: 335,
+                      height: 50.0,
                       child: ElevatedButton(
                           child: Text('SIGN IN',),
                           style: ElevatedButton.styleFrom(
@@ -206,7 +224,7 @@ class _SignInPageState extends State<SignInPage> {
                             style: TextStyle(
                               color: Color(0xff112027),
                               fontWeight: FontWeight.bold,
-                              fontSize: 15.0,
+                              fontSize: 12.0,
                             ),
                           )),
                           SizedBox(height: 35.0),
@@ -219,6 +237,7 @@ class _SignInPageState extends State<SignInPage> {
                                 final isAuthenticated = await LocalAuthApi.authenticate();
                                 print('clicked');
                                 if (isAuthenticated) {
+
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(builder: (context) => homePage()),
                                   );
@@ -234,7 +253,7 @@ class _SignInPageState extends State<SignInPage> {
                               child: RichText(
                                 text: TextSpan(
                                   text: 'New User? ',
-                                  style: TextStyle(fontSize: 18, color: Color(0xff749BAD)),
+                                  style: TextStyle(fontSize: 14, color: Color(0xff749BAD)),
                                   children: <TextSpan>[
                                     TextSpan(
                                         text: 'Sign Up',
@@ -254,7 +273,7 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                           ),
                           SizedBox(
-                            height: 45.0,
+                            height: 120.0,
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
@@ -262,7 +281,7 @@ class _SignInPageState extends State<SignInPage> {
                               'Privacy Policy . Terms and Conditions',
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 13.0,
+                                  fontSize: 10.0,
                                   color: Colors.blueGrey),
                             ),
                           ),

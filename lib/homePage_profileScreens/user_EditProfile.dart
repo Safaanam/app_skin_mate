@@ -1,52 +1,21 @@
 import 'dart:convert';
 import 'package:app_skin_mate/ProfileSetupScreens/Gender.dart';
-import 'package:app_skin_mate/Screens/homePage.dart';
+import 'package:app_skin_mate/Screens/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-Future getUserData() async {
-  final storage = FlutterSecureStorage();
-  String cust_id = await storage.read(key: "cust_id");
-  String token = await storage.read(key: "token");
-  Map mapeddata = {
-    'customerId': cust_id,
-  };
-  final response = await http.post(
-      Uri.parse('http://65.0.55.180/secured/skinmate/v1.0/customer/view'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode(mapeddata)
-  );
-  var ConvertedData = jsonDecode(response.body);
-  var code = (ConvertedData[0]['Code']);
-  var info = ConvertedData[0]["responseInformation"] as List;
-  print(info[0]['phoneNumber']);
 
-  if(code!=200 && info == null)
-    {
-      print('invalid');
-    }
-  //else
-    //print('error in set profile');
-}
-
-class SetProfile extends StatefulWidget {
+class user_EditProfile extends StatefulWidget {
   @override
-  _SetProfileState createState() => _SetProfileState();
+  _user_EditProfileState createState() => _user_EditProfileState();
 }
 
-class _SetProfileState extends State<SetProfile> {
-  final storage = FlutterSecureStorage();
+class _user_EditProfileState extends State<user_EditProfile> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   List<Gender> genders = new List<Gender>();
-  DateTime _selectedDate;
   Position _currentPosition;
   String _currentAddress;
   String Phonenum;
@@ -56,10 +25,6 @@ class _SetProfileState extends State<SetProfile> {
   var gender;
   var flutter;
   var code;
-  TextEditingController _firstName = TextEditingController();
-  TextEditingController _lastName = TextEditingController();
-  TextEditingController _dob = TextEditingController();
-  TextEditingController _bloodGroup = TextEditingController();
   TextEditingController _location = TextEditingController();
   TextEditingController _insurance = TextEditingController();
   TextEditingController _emergencyName = TextEditingController();
@@ -67,22 +32,9 @@ class _SetProfileState extends State<SetProfile> {
   @override
   void initState() {
     super.initState();
-    getSignupValues();
     genders.add(new Gender("Male",'assets/Profile_Images/male.png' , false));
     genders.add(new Gender("Female",'assets/Profile_Images/female.png' , false));
     genders.add(new Gender("Others",'assets/Profile_Images/other.png' , false));
-    _firstName.addListener(() {
-      setState(() {}); // setState every time text changes
-    });
-    _lastName.addListener(() {
-      setState(() {}); // setState every time text changes
-    });
-    _dob.addListener(() {
-      setState(() {}); // setState every time text changes
-    });
-    _bloodGroup.addListener(() {
-      setState(() {}); // setState every time text changes
-    });
     _location.addListener(() {
       setState(() {}); // setState every time text changes
     });
@@ -95,12 +47,6 @@ class _SetProfileState extends State<SetProfile> {
     _emergencyNum.addListener(() {
       setState(() {}); // setState every time text changes
     });
-  }
-  getSignupValues() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-      Phonenum = prefs.getString('PhoneNumber') ?? '';
-      emailll = prefs.getString('email') ?? '';
-      pasword = prefs.getString('password') ?? '';
   }
   String validateMobile(String value) {
     String patttern = r'^(?:[+0]9)?[0-9]{10}$';
@@ -153,20 +99,20 @@ class _SetProfileState extends State<SetProfile> {
               Container(
                 width: 335.0,
                 height: 44.0,
-                child: TextFormField(
-                  controller: _firstName,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xffCCD0D5),
                     ),
-                    hintText: 'Enter First Name',
-                    hintStyle: TextStyle(
+                  borderRadius: BorderRadius.circular(10.0)
+                  ),
+                child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0,top:15.0),
+                    child: Text("First Name",
+                      style: TextStyle(
                       color: Color(0xff02122C),
                       fontSize: 12.0,
-                    ),
-                  ),
+                    ),)
+                   ),
                 ),
-              ),
               SizedBox(height: 30.0),
               Text('Last Name',
                 style: TextStyle(
@@ -178,18 +124,18 @@ class _SetProfileState extends State<SetProfile> {
               Container(
                 width: 335.0,
                 height: 44.0,
-                child: TextFormField(
-                  controller: _lastName,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xffCCD0D5),
                     ),
-                    hintText: 'Enter Last Name',
-                    hintStyle: TextStyle(
-                      color: Color(0xff02122C),
-                      fontSize: 12.0,
-                    ),
-                  ),
+                    borderRadius: BorderRadius.circular(10.0)
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0,top:15.0),
+                    child: Text("Last Name",
+                      style: TextStyle(
+                        color: Color(0xff02122C),
+                        fontSize: 12.0,
+                      ),)
                 ),
               ),
               SizedBox(height: 30.0),
@@ -211,14 +157,7 @@ class _SetProfileState extends State<SetProfile> {
                     itemCount: genders.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () {
-                          setState(() {
-                            genders.forEach((gender) => gender.isSelected = false);
-                            genders[index].isSelected = true;
-                            Genderselected= true;
-                            gender= genders[index].name;
-                          });
-                        },
+                        onTap: () {},
                         child: CustomRadio(genders[index]),
                       );
                     }),
@@ -234,32 +173,28 @@ class _SetProfileState extends State<SetProfile> {
               Container(
                 width: 335.0,
                 height: 44.0,
-                child: TextFormField(
-                  controller: _dob,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffCCD0D5)),
-                    ),
-                    hintText: 'Select Date of Birth',
-                    hintStyle: TextStyle(
-                      color: Color(0xff02122C),
-                      fontSize: 12.0,
-                    ),
-                    suffixIcon:
-                    IconButton(
-                        icon: Icon(
-                            Icons.calendar_today_outlined
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xffCCD0D5),),
+                borderRadius: BorderRadius.circular(10.0)),
+                child: Row(
+                    children: [
+                      Padding(
+                      padding: const EdgeInsets.only(left: 10.0,top:10.0),
+                      child: Text("DOB",
+                        style: TextStyle(
+                          color: Color(0xff02122C),
+                          fontSize: 12.0,),
+                       ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 250.0,),
+                        child: Icon(Icons.calendar_today_outlined),
                         ),
-                        onPressed: () {
-                          _selectDate(context);
-                          setState(() {
-                          });
-                        }),
-                  ),
+                    ],
                 ),
-              ),
+                ),
               SizedBox(height: 30.0),
-              Text('Select Blood Group',
+              Text('Blood Group',
                 style: TextStyle(
                     fontSize: 12.0,
                     color: Color(0xff02122C)
@@ -269,34 +204,18 @@ class _SetProfileState extends State<SetProfile> {
               Container(
                 width: 335.0,
                 height: 44.0,
-                child: TextFormField(
-                  controller: _bloodGroup,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xffCCD0D5)),
-                      ),
-                      hintText: 'Select Blood Group',
-                      hintStyle: TextStyle(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xffCCD0D5),
+                    ),
+                    borderRadius: BorderRadius.circular(10.0)
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0,top:15.0),
+                    child: Text("Blood Group",
+                      style: TextStyle(
                         color: Color(0xff02122C),
                         fontSize: 12.0,
-                      ),
-                      suffixIcon:
-                      new DropdownButton<String>(
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconSize: 30,
-                        items: <String>['A+', 'A-', 'B+', 'B-','O+','O-'].map((String value) {
-                          return new DropdownMenuItem<String>(
-                            value: value,
-                            child: new Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String data) {
-                          setState(() {
-                            _bloodGroup.text = data;
-                          });
-                        },
-                      )
-                  ),
+                      ),)
                 ),
               ),
               SizedBox(height: 30.0),
@@ -344,7 +263,8 @@ class _SetProfileState extends State<SetProfile> {
                   controller: _location,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
                     hintText: 'Enter Mailing Address',
                     hintStyle: TextStyle(
@@ -369,7 +289,8 @@ class _SetProfileState extends State<SetProfile> {
                   controller: _insurance,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
                     hintText: 'Enter Insurance Information',
                     hintStyle: TextStyle(
@@ -394,7 +315,8 @@ class _SetProfileState extends State<SetProfile> {
                   controller: _emergencyName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
                     hintText: 'Enter Emergency Contact Name',
                     hintStyle: TextStyle(
@@ -421,7 +343,8 @@ class _SetProfileState extends State<SetProfile> {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
                     hintText: 'Enter Emergency Number',
                     hintStyle: TextStyle(
@@ -431,103 +354,37 @@ class _SetProfileState extends State<SetProfile> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: Center(
-                  child: Container(
-                      width: 336.0,
-                      height: 68.0,
-                      child: Text("Note: Name, Gender, Date of Birth & Blood Group once\n" ""
-                          "entered cannot be edited later.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 12.0,
-                            color: Color(0xff02122C)
-                        ),
-                      )
-                  ),
-                ),
-              ),
-              Container(
-                width: 336.0,
-                height: 85.0,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("By selecting",
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              color: Color(0xff25414A)),),
-                        Text(" ‘Create my account’ ", style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12.0,
-                            color: Color(0xff25414A)
-                        ),),
-                        Text("below, I agree to", style: TextStyle(
-                            fontSize: 12.0,
-                            color: Color(0xff25414A)),),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Southwest Michigan Dermatology ’s ", style: TextStyle(
-                            fontSize: 12.0,
-                            color: Color(0xff25414A)),),
-                        Text("Terms of Use ", style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 12.0,
-                            color: Color(0xff25414A)),),
-                        Text("and", style: TextStyle(
-                            fontSize: 12.0,
-                            color: Color(0xff25414A)),),
-                      ],
-                    ),
-                    Text("Privacy Policy.", style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        fontSize: 12.0,
-                        color: Color(0xff25414A)),),
-                  ],
-                ),
-              ),
+              SizedBox(height: 30.0),
               ButtonTheme(
                 child: Container(
                   width: 335.0,
                   height: 50.0,
                   child: ElevatedButton(
-                      onPressed: () async {
-                        if (_firstName.text.isEmpty || _lastName.text.isEmpty||
-                            _dob.text.isEmpty|| _bloodGroup.text.isEmpty||
-                            _location.text.isEmpty || _insurance.text.isEmpty||
-                            _emergencyName.text.isEmpty|| _emergencyNum.text.isEmpty ||
-                            Genderselected ==false)
-                          {
-                            final snackBar = SnackBar(
-                              content: Text("Please Fill all the Details"),
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          }
-                        else if(formkey.currentState.validate()) {
-                          registerUser();
-                        };
-                      },
-                      child: Text('CREATE MY ACCOUNT',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                          color: Color(0xffFFFFFF),
-                        ),),
-                      style: ElevatedButton.styleFrom(
-                          primary:(_firstName.text.isEmpty || _lastName.text.isEmpty||
-                              _dob.text.isEmpty|| _bloodGroup.text.isEmpty||
-                              _location.text.isEmpty || _insurance.text.isEmpty||
-                              _emergencyName.text.isEmpty|| _emergencyNum.text.isEmpty ||
-                              Genderselected ==false)
-                              ? Colors.blueGrey[100]
-                              : Color(0xff749BAD),
-                          shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),)),
+                    onPressed: () async {
+                      if (_location.text.isEmpty || _insurance.text.isEmpty||
+                          _emergencyName.text.isEmpty|| _emergencyNum.text.isEmpty)
+                      {
+                        final snackBar = SnackBar(
+                          content: Text("Please Fill all the Details"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                      else if(formkey.currentState.validate()) {
+                        registerUser();
+                      };
+                    },
+                    child: Text('SAVE CHANGES',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.0,
+                        color: Color(0xffFFFFFF),
+                      ),),
+                    style: ElevatedButton.styleFrom(
+                        primary:(_location.text.isEmpty || _insurance.text.isEmpty||
+                            _emergencyName.text.isEmpty|| _emergencyNum.text.isEmpty)
+                            ? Colors.blueGrey[100]
+                            : Color(0xff749BAD),
+                        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),)),
                   ),
                 ),
               ),
@@ -537,36 +394,6 @@ class _SetProfileState extends State<SetProfile> {
         ),
       ),
     );
-  }
-  _selectDate(BuildContext context) async {
-    DateTime newSelectedDate = await showDatePicker(
-        context: context,
-        initialDate: _selectedDate != null ? _selectedDate : DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2040),
-        builder: (BuildContext context, Widget child) {
-          return Theme(
-            data: ThemeData.dark().copyWith(
-              colorScheme: ColorScheme.dark(
-                primary: Colors.deepPurple,
-                onPrimary: Colors.white,
-                surface: Colors.blueGrey,
-                onSurface: Colors.red,
-              ),
-              dialogBackgroundColor: Colors.white,
-            ),
-            child: child,
-          );
-        });
-    if (newSelectedDate != null) {
-      _selectedDate = newSelectedDate;
-      _dob
-          ..text = DateFormat('yyyy-MM-dd').format(_selectedDate)
-        ..selection = TextSelection.fromPosition(TextPosition(
-            offset: _dob.text.length,
-            affinity: TextAffinity.upstream));
-    }
-
   }
   void _getCurrentLocation() {
     Geolocator
@@ -602,11 +429,7 @@ class _SetProfileState extends State<SetProfile> {
     Map mapeddata = {
       'phoneNumber': Phonenum,
       'email': emailll,
-      'firstName': _firstName.text,
-      'lastName': _lastName.text,
       'gender': gender,
-      'dob': _dob.text,
-      'bloodGroup': _bloodGroup.text,
       'loginType': flutter,
       'password': pasword,
       'address': _location.text,
@@ -620,11 +443,8 @@ class _SetProfileState extends State<SetProfile> {
     print("DATA: ${data}");
     var code = (data[0]['Code']);
     if (code == 200)
-      Navigator.push(context, MaterialPageRoute(builder: (_) => homePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => WelcomeScreen()));
   }
-
-
-
 }
 
 

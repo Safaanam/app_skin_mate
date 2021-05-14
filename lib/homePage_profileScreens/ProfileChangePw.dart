@@ -192,7 +192,7 @@ class _profileChangePwState extends State<profileChangePw> {
   Future profilePwChangeAPI() async {
     String cust_id = await storage.read(key: "cust_id");
     String token = await storage.read(key: "token");
-    var APIURL=Uri.parse("http://65.0.55.180/skinmate/v1.0/customer/change-password");
+    var APIURL=Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/change-password");
     Map mapeddata ={
       'customerId': cust_id,
       'oldPassword' : _pwController1.text,
@@ -205,18 +205,23 @@ class _profileChangePwState extends State<profileChangePw> {
     },body:jsonEncode(mapeddata));
     var data =jsonDecode(response.body);
     print("DATA:${data}");
-    var code=(data['Code']);
+    var code=(data[0]['Code']);
     //print(code);
     if(code==200)
     {
       Navigator.push(context, MaterialPageRoute(builder: (_) => UserProfile()));
+      final snackBar2 = SnackBar(
+        content: Text('updated password'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar2);
+
     }
     else
       {
-        final snackBar2 = SnackBar(
+        final snackBar3 = SnackBar(
           content: Text('Unable to update password, please try again!'),
         );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar2);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar3);
       }
 
   }

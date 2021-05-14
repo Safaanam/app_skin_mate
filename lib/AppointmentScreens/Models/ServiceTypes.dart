@@ -1,6 +1,51 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+Future getSubService(var index) async {
+  int recievedNum = index.toInt();
+  int list_num = recievedNum+1;
+  String APIURL = 'http://65.0.55.180/secured/skinmate/v1.0/subtype-of-service/list/'+list_num.toString();
+  var url = Uri.parse(APIURL);
+  print('url : $APIURL');
+  final storage = FlutterSecureStorage();
+  String token = await storage.read(key: "token");
+  final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+  );
+  var ConvertedData = jsonDecode(response.body);
+  var code = (ConvertedData[0]['Code']);
+  var subserviceList = ConvertedData[0]["responseInformation"];
+  if(code == 200) {
+    print(subserviceList);
+    List convertedList = subserviceList.values.toList();
+    print('converted list : $convertedList');
+    //return convertedList;
+   // var list = convertedList.map<subServices>((json) => subServices().fromJson(json));
+  }
+  else print('error in fetching subservices');
+}
+class subServices {
 
+  int subserviceId;
+  String subserviceType;
+
+  subServices({this.subserviceId, this.subserviceType});
+
+  factory subServices.fromJson(Map<String, dynamic> json) {
+    return subServices(
+      subserviceId: json['subserviceId'],
+      subserviceType: json['subserviceType'],
+    );
+  }
+
+}
 class Service {
   String ServiceType;
   String imageUrl;

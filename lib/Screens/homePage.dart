@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/AppointmentScreens/Models/ServiceTypes.dart';
 import 'package:app_skin_mate/AppointmentScreens/noAppointment.dart';
 import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/Notifications.dart';
@@ -89,6 +90,7 @@ class _homePageState extends State<homePage> {
                   builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return GridView.builder(
+                      physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -99,6 +101,7 @@ class _homePageState extends State<homePage> {
                           return GestureDetector(
                             onTap: () {
                               //print('clicked');
+                              getSubService(index);
                               Navigator.of(context).pushNamed('/schedule');
                               //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => scheduleAppoitment()),);
                             },
@@ -116,14 +119,18 @@ class _homePageState extends State<homePage> {
                                     bottomRight: Radius.circular(10.0)),
                               ),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
                                 children: [
                                   //Image.asset(services[index].serviceImageUrl),
                                   //ImageIcon(AssetImage(services[index].serviceImageUrl)),
+                                  ImageIcon(AssetImage("assets/images/service" + index.toString() + ".png"),
+                                    color: Color(0xff759CAD),
+                                    size: 50.0,
+                                  ),
                                   Text("${snapshot.data[index].serviceType}",
                                       //services[index].serviceName,
                                       style:
-                                      TextStyle(fontSize: 11, color: Color(0xFF759CAD)),
+                                      TextStyle(fontSize: 12, color: Color(0xFF759CAD)),
                                       textAlign: TextAlign.center),
                                 ],
                               ),

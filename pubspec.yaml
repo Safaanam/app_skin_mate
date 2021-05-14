@@ -21,7 +21,6 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  flutter_date_pickers: ^0.2.4
   flutter_secure_storage: ^4.2.0
   shared_preferences: ^2.0.5
   dio: ^4.0.0
