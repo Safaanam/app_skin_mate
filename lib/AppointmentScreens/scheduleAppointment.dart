@@ -26,6 +26,9 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
   }
   @override
   Widget build(BuildContext context) {
+
+    var selectedId = (ModalRoute.of(context).settings.arguments as Map)["selectedId"];
+
     return Scaffold(
           appBar: AppBar(
             leading: Container(
@@ -64,8 +67,8 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
                   ),
                 ),
                 SizedBox(height:20.0),
-                FutureBuilder<List<String>>(
-                  future: getSubService(1),
+                FutureBuilder<List<subServices>>(
+                  future: getSubService(selectedId),
                     builder:(context, AsyncSnapshot snapshot) {
                     if (!snapshot.hasData) {
                       return Center(child: CircularProgressIndicator());
@@ -113,7 +116,7 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
                                               ),
                                               Padding(
                                                 padding: const EdgeInsets.only(left: 10.0),
-                                                child: Text("${snapshot.data[index]}",
+                                                child: Text("${snapshot.data[index].subserviceType}",
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 14.0,

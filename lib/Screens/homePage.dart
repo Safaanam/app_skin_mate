@@ -15,6 +15,7 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   Future<List<Services>> serv;
+  List<Services> serviceList;
   @override
   void initState(){
     super.initState();
@@ -89,6 +90,9 @@ class _homePageState extends State<homePage> {
                 future: fetchServices(),
                   builder: (context, snapshot) {
                   if (snapshot.hasData) {
+
+                    serviceList = snapshot.data;
+
                     return GridView.builder(
                       physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -100,10 +104,7 @@ class _homePageState extends State<homePage> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              //print('clicked');
-                              getSubService(index);
-                              Navigator.of(context).pushNamed('/schedule');
-                              //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => scheduleAppoitment()),);
+                              Navigator.of(context).pushNamed('/schedule',  arguments: {'selectedId': serviceList[index].serviceId},);
                             },
                             child: Container(
                               margin: EdgeInsets.only(left: 20.0,right: 20.0),

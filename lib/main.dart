@@ -1,4 +1,4 @@
-import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
+ import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
 import 'package:app_skin_mate/Screens/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 
