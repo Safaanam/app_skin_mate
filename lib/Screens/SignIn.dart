@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:app_skin_mate/Screens/ForgotPw.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:app_skin_mate/Screens/signupscreen.dart';
-import 'package:app_skin_mate/models/Services.dart';
 import 'package:app_skin_mate/models/local_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +84,7 @@ class _SignInPageState extends State<SignInPage> {
         child: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(40.0, 80.0, 40.0, 0.0),
+              padding: EdgeInsets.fromLTRB(40.0, 50.0, 40.0, 0.0),
               child: Form(
                 autovalidateMode: AutovalidateMode.always,
                 key: formkey,
@@ -273,7 +272,7 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                           ),
                           SizedBox(
-                            height: 120.0,
+                            height: 70.0,
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,

@@ -18,7 +18,7 @@ Widget openErrorAlert(BuildContext context) {
               contentPadding: EdgeInsets.only(top: 10.0),
               content: Container(
                 width: 276.0,
-                height: 290.0,
+                height: 296.0,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,18 +27,18 @@ Widget openErrorAlert(BuildContext context) {
                       padding: const EdgeInsets.only(top: 43.0),
                       child: Center(
                         child: Container(
-                            width: 28.3,
-                            height: 44.3,
+                            width: 43.0,
+                            height: 53.0,
                             child: Image.asset('assets/images/error.png')
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 30.0),
+                      padding: const EdgeInsets.only(top: 41.0),
                       child: Center(
                         child: Container(
                             width: 226.0,
-                            height: 40,
+                            height: 40.0,
                             child: Text("Invalid OTP",
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -50,9 +50,7 @@ Widget openErrorAlert(BuildContext context) {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15.0),
-                      child: Center(
+                    Center(
                         child: Container(
                             width: 225.0,
                             height: 60.0,
@@ -65,25 +63,27 @@ Widget openErrorAlert(BuildContext context) {
                             )
                         ),
                       ),
-                    ),
-                    InkWell(
-                      child: Container(
-                        width: 276.0,
-                        height: 57.7,
-                        padding: EdgeInsets.only(top: 17.0,bottom: 15.0),
-                        decoration: BoxDecoration(
-                          color: Color(0XFF749BAD),
-                          borderRadius: BorderRadius.only(
+                    Padding(
+                      padding: const EdgeInsets.only(top: 9.0),
+                      child: InkWell(
+                        child: Container(
+                          width: 276.0,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: Color(0XFF749BAD),
+                            borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(32.0)),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                            OtpScreen(context);
-                          },
-                          child: Text("RETRY",
-                            style: TextStyle(color: Color(0xffFFFFFF),fontWeight: FontWeight.bold,),
-                            textAlign: TextAlign.center,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                              OtpScreen(context);
+                            },
+                            child: Center(
+                              child: Text("RETRY",
+                                style: TextStyle(color: Color(0xffFFFFFF),fontWeight: FontWeight.bold,),
+                               ),
+                            ),
                           ),
                         ),
                       ),

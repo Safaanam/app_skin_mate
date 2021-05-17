@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
             contentPadding: EdgeInsets.only(top: 10.0),
             content: Container(
               width: 276.0,
-              height: 340.0,
+              height: 337.0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,18 +27,18 @@ import 'package:flutter/material.dart';
                     padding: const EdgeInsets.only(top: 48.0),
                     child: Center(
                       child: Container(
-                          width: 48,
-                          height: 47,
+                          width: 47.0,
+                          height: 48.0,
                           child: Image.asset('assets/images/success.png')
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
+                    padding: const EdgeInsets.only(top: 41.0),
                     child: Center(
                       child: Container(
                           width: 226.0,
-                          height: 40,
+                          height: 40.0,
                           child: Text("The OTP has been\n"
                               " succesfully verified",
                             textAlign: TextAlign.center,
@@ -52,11 +52,11 @@ import 'package:flutter/material.dart';
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
+                    padding: const EdgeInsets.only(top: 22.0),
                     child: Center(
                       child: Container(
                           width: 225.0,
-                          height: 100.0,
+                          height: 78.0,
                           child: Text("A verification mail has been\n"
                               " sent to your mail id.Kindly verify\n"
                               " it for proceeding.",
@@ -69,24 +69,29 @@ import 'package:flutter/material.dart';
                       ),
                     ),
                   ),
-                  InkWell(
-                    child: Container(
-                      padding: EdgeInsets.only(top: 20.0, bottom: 13.0),
-                      decoration: BoxDecoration(
-                        color: Color(0xff749BAD),
-                        borderRadius: BorderRadius.only(
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: InkWell(
+                      child: Container(
+                        width: 276.0,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xff749BAD),
+                          borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(32.0)),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (_) =>
-                              SetProfile()));
-                        },
-                        child: Text("OKAY",
-                          style: TextStyle(color: Color(0xffFFFFFF),
-                            fontWeight: FontWeight.bold,),
-                          textAlign: TextAlign.center,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context, MaterialPageRoute(builder: (_) => SetProfile()));
+                          },
+                          child: Center(
+                            child: Text("OKAY",
+                              style: TextStyle(color: Color(0xffFFFFFF),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0),
+                            ),
+                          ),
                         ),
                       ),
                     ),
