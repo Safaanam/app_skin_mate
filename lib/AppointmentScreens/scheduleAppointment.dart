@@ -64,8 +64,8 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
                   ),
                 ),
                 SizedBox(height:20.0),
-                FutureBuilder<List<subServices>>(
-                  future: getSubService(int),
+                FutureBuilder<List<String>>(
+                  future: getSubService(1),
                     builder:(context, AsyncSnapshot snapshot) {
                     if (!snapshot.hasData) {
                       return Center(child: CircularProgressIndicator());
@@ -113,7 +113,7 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
                                               ),
                                               Padding(
                                                 padding: const EdgeInsets.only(left: 10.0),
-                                                child: Text("${snapshot.data[index].subserviceType}",
+                                                child: Text("${snapshot.data[index]}",
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 14.0,

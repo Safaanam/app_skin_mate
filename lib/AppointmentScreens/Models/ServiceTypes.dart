@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 final storage = FlutterSecureStorage();
 
-Future<List<subServices>> getSubService(var index) async {
+Future<List<String>> getSubService(var index) async {
   List<subServices> subList;
   int recievedNum = index.toInt();
   int serv_id = recievedNum+1;
@@ -26,19 +26,19 @@ Future<List<subServices>> getSubService(var index) async {
   var code = (ConvertedData[0]['Code']);
   var subserviceList = ConvertedData[0]["responseInformation"];
   for(var v in subserviceList.values) {
-    print(v);
-    v.asMap().forEach((i, value) { print('index=$i, value=$value'); } );
+    //print(v);
+    //v.asMap().forEach((i, value) { print('index=$i, value=$value'); } );
   };
   //print(subserviceList[0]);
   if(code == 200) {
     print(subserviceList);
-    //List convertedList = subserviceList.values.toList();
-    //print('converted list : $convertedList');
-    //return convertedList;
-    subList = subserviceList.map<subServices>((entry) => subServices(entry.key, entry.value)).toList();
+    List<String> convertedList = subserviceList.values.toList();
+    print('converted list : $convertedList');
+    return convertedList;
+    //subList = subserviceList.map<subServices>((entry) => subServices(entry.key, entry.value)).toList();
 
     //print('sublist is : $subList');
-    return subList;
+    //return subList;
   }
   else print('error in fetching subservices');
 }
