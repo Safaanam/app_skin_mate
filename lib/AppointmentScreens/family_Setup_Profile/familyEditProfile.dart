@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:app_skin_mate/ProfileSetupScreens/Gender.dart';
 import 'package:app_skin_mate/homePage_profileScreens/userProfile.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +8,20 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 final storage = FlutterSecureStorage();
 
 
-class user_EditProfile extends StatefulWidget {
+class familyEdit extends StatefulWidget {
   @override
-  _user_EditProfileState createState() => _user_EditProfileState();
+  _familyEditState createState() => _familyEditState();
 }
 
-class _user_EditProfileState extends State<user_EditProfile> {
+class _familyEditState extends State<familyEdit> {
   var data;
   var cust_Id;
+  DateTime _selectedDate;
+  bool Genderselected= false;
   String token;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   List<Gender> genders = new List<Gender>();
@@ -30,6 +34,7 @@ class _user_EditProfileState extends State<user_EditProfile> {
   TextEditingController _lastName = TextEditingController();
   TextEditingController _dob = TextEditingController();
   TextEditingController _bloodGroup = TextEditingController();
+  TextEditingController _relationship = TextEditingController();
   TextEditingController _location = TextEditingController();
   TextEditingController _insurance = TextEditingController();
   TextEditingController _emergencyName = TextEditingController();
@@ -40,7 +45,7 @@ class _user_EditProfileState extends State<user_EditProfile> {
   @override
   void initState() {
     super.initState();
-    viewCustomer();
+    viewFamilyDetails();
     genderSelector();
     _firstName.addListener(() {
       setState(() {}); // setState every time text changes
@@ -52,6 +57,9 @@ class _user_EditProfileState extends State<user_EditProfile> {
       setState(() {}); // setState every time text changes
     });
     _bloodGroup.addListener(() {
+      setState(() {}); // setState every time text changes
+    });
+    _relationship.addListener(() {
       setState(() {}); // setState every time text changes
     });
     _location.addListener(() {
@@ -119,7 +127,6 @@ class _user_EditProfileState extends State<user_EditProfile> {
                 width: 335.0,
                 height: 44.0,
                 child: TextFormField(
-                  enabled: false,
                   controller: _firstName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -141,7 +148,6 @@ class _user_EditProfileState extends State<user_EditProfile> {
                 width: 335.0,
                 height: 44.0,
                 child: TextFormField(
-                  enabled: false,
                   controller: _lastName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -170,7 +176,14 @@ class _user_EditProfileState extends State<user_EditProfile> {
                     itemCount: genders.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            genders.forEach((gender) => gender.isSelected = false);
+                            genders[index].isSelected = true;
+                            Genderselected= true;
+                            gender= genders[index].name;
+                          });
+                        },
                         child: CustomRadio(genders[index]),
                       );
                     }),
@@ -187,7 +200,6 @@ class _user_EditProfileState extends State<user_EditProfile> {
                 width: 335.0,
                 height: 44.0,
                 child: TextFormField(
-                  enabled: false,
                   controller: _dob,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -199,9 +211,12 @@ class _user_EditProfileState extends State<user_EditProfile> {
                         icon: Icon(
                             Icons.calendar_today_outlined
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          _selectDate(context);
+                          setState(() {
+                          });
+                        }),
                   ),
-                ),
                 ),
               ),
               SizedBox(height: 30.0),
@@ -216,14 +231,56 @@ class _user_EditProfileState extends State<user_EditProfile> {
                 width: 335.0,
                 height: 44.0,
                 child: TextFormField(
-                  enabled: false,
                   controller: _bloodGroup,
-                    decoration: InputDecoration(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffCCD0D5)),
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                      suffixIcon:
+                      new DropdownButton<String>(
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 25,
+                        items: <String>['A+', 'A-', 'B+', 'B-','O+','O-'].map((String value) {
+                          return new DropdownMenuItem<String>(
+                            value: value,
+                            child: new Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String data) {
+                          setState(() {
+                            _bloodGroup.text = data;
+                          });
+                        },
+                      )
+                  ),
+                ),
+              ),
+              SizedBox(height: 30.0),
+              Text('Relationship',
+                style: TextStyle(
+                    fontSize: 12.0,
+                    color: Color(0xff02122C)
+                ),
+              ),
+              SizedBox(height: 10.0),
+              Container(
+                width: 335.0,
+                height: 44.0,
+                child: TextFormField(
+                  enabled: false,
+                  controller: _relationship,
+                  decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xffCCD0D5)),
                           borderRadius: BorderRadius.circular(10.0)
                       ),
-                    ),
+                      hintText: 'Select Relationship',
+                      hintStyle: TextStyle(
+                        color: Color(0xff02122C),
+                        fontSize: 12.0,
+                      ),
+                  ),
                 ),
               ),
               SizedBox(height: 30.0),
@@ -378,7 +435,7 @@ class _user_EditProfileState extends State<user_EditProfile> {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                       else if(formkey.currentState.validate()) {
-                        saveUpdates();
+                        saveFamilyUpdates();
                       };
                     },
                     child: Text('SAVE CHANGES',
@@ -402,6 +459,37 @@ class _user_EditProfileState extends State<user_EditProfile> {
         ),
       ),
     );
+
+  }
+  _selectDate(BuildContext context) async {
+    DateTime newSelectedDate = await showDatePicker(
+        context: context,
+        initialDate: _selectedDate != null ? _selectedDate : DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2040),
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.dark(
+                primary: Colors.deepPurple,
+                onPrimary: Colors.white,
+                surface: Colors.blueGrey,
+                onSurface: Colors.red,
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child,
+          );
+        });
+    if (newSelectedDate != null) {
+      _selectedDate = newSelectedDate;
+      _dob
+        ..text = DateFormat('yyyy-MM-dd').format(_selectedDate)
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: _dob.text.length,
+            affinity: TextAffinity.upstream));
+    }
+
   }
   void _getCurrentLocation() {
     Geolocator
@@ -431,28 +519,30 @@ class _user_EditProfileState extends State<user_EditProfile> {
       print(e);
     }
   }
-  Future viewCustomer() async {
-    cust_Id = await storage.read(key: "cust_id");
+  Future viewFamilyDetails() async {
+    String familyProfileId = await storage.read(key: "fam_Id");
     token = await storage.read(key: "token");
-    var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/view");
-    Map mapeddata = {
-      'customerId' : cust_Id,
-    };
-    http.Response response = await http.post(APIURL,
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'},
-        body: jsonEncode(mapeddata));
+    var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/family-profile/view/"+familyProfileId.toString());
+    final response = await http.get(
+      APIURL,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     data = jsonDecode(response.body);
     var code = (data[0]['Code']);
     if(code==200) {
-      _firstName.text = data[0]['responseInformation'][0]['firstName'];
-      _lastName.text = data[0]['responseInformation'][0]['lastName'];
-      _dob.text = data[0]['responseInformation'][0]['dob'];
-      _bloodGroup.text = data[0]['responseInformation'][0]['bloodGroup'];
-      _location.text = data[0]['responseInformation'][0]['address'];
-      _emergencyName.text = data[0]['responseInformation'][0]['emeregencyContactName'];
-      _insurance.text = data[0]['responseInformation'][0]['insuranceInformation'];
-      _emergencyNum.text = data[0]['responseInformation'][0]['emeregencyNumber'];
-      genderSelected=(data[0]['responseInformation'][0]['gender']).toString();
+      _firstName.text = data[0]['responseInformation']['firstName'];
+      _lastName.text = data[0]['responseInformation']['lastName'];
+      _dob.text = data[0]['responseInformation']['dob'];
+      _bloodGroup.text = data[0]['responseInformation']['bloodGroup'];
+      _relationship.text = (data[0]['responseInformation']['relationshipId']).toString();
+      _location.text = data[0]['responseInformation']['address'];
+      _emergencyName.text = data[0]['responseInformation']['emeregencyContactName'];
+      _insurance.text = data[0]['responseInformation']['insuranceInformation'];
+      _emergencyNum.text = data[0]['responseInformation']['emeregencyNumber'];
+      genderSelected=(data[0]['responseInformation']['gender']).toString();
       storage.write(key: "gender", value: genderSelected);
     }
     else
@@ -471,21 +561,32 @@ class _user_EditProfileState extends State<user_EditProfile> {
     genders.add(new Gender("2","Female",'assets/Profile_Images/female.png' , isSelected2));
     genders.add(new Gender("3","Others",'assets/Profile_Images/other.png' , isSelected3));
   }
-  Future saveUpdates() async {
-    var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/edit");
+  Future saveFamilyUpdates() async {
+    String familyProfileId = await storage.read(key: "fam_Id");
+    var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/family-member/edit/"+familyProfileId.toString());
     Map mapeddata = {
-      'customerId' : cust_Id,
+      'firstName': _firstName.text,
+      'lastName': _lastName.text,
+      'gender': gender,
+      'dob': _dob.text,
+      'bloodGroup': _bloodGroup.text,
       'address': _location.text,
-      'email': 'safaanam3@gmail.com',
       'emeregencyNumber': _emergencyNum.text,
       'insuranceInformation': _insurance.text,
       'emeregencyContactName': _emergencyName.text
     };
-    http.Response response = await http.post(APIURL,
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'},
-        body: jsonEncode(mapeddata));
+    http.Response response = await http.put(
+      APIURL,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: json.encode(mapeddata),
+    );
     var data = jsonDecode(response.body);
+    print(data);
     var code = (data[0]['Code']);
+    print(code);
     if (code == 200)
       Navigator.push(context, MaterialPageRoute(builder: (_) => UserProfile()));
   }

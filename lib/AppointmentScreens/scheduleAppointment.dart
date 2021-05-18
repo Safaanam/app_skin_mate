@@ -111,7 +111,7 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
                                                 image: AssetImage('assets/user_Profile/Daily_Checkup.png'),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 10.0),
+                                                padding: const EdgeInsets.only(left: 6.0),
                                                 child: Text("${snapshot.data[index].subserviceType}",
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,

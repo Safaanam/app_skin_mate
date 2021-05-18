@@ -9,34 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-Future getUserData() async {
-  final storage = FlutterSecureStorage();
-  String cust_id = await storage.read(key: "cust_id");
-  String token = await storage.read(key: "token");
-  Map mapeddata = {
-    'customerId': cust_id,
-  };
-  final response = await http.post(
-      Uri.parse('http://65.0.55.180/secured/skinmate/v1.0/customer/view'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode(mapeddata)
-  );
-  var ConvertedData = jsonDecode(response.body);
-  var code = (ConvertedData[0]['Code']);
-  var info = ConvertedData[0]["responseInformation"] as List;
-  print(info[0]['phoneNumber']);
-
-  if(code!=200 && info == null)
-    {
-      print('invalid');
-    }
-  //else
-    //print('error in set profile');
-}
-
 class SetProfile extends StatefulWidget {
   @override
   _SetProfileState createState() => _SetProfileState();

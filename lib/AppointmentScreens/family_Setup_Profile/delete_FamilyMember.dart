@@ -138,7 +138,6 @@ Future<Widget> deleteAlert(BuildContext context) async{
       });
 
 }
-
 Future deleteFamilyMember() async {
   String token = await storage.read(key: "token");
   String familyProfileId = await storage.read(key: "fam_Id");

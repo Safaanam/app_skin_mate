@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:app_skin_mate/AppointmentScreens/family_Setup_Profile/delete_FamilyMember.dart';
-import 'package:app_skin_mate/AppointmentScreens/family_Setup_Profile/family_ProfileSetup.dart';
+import 'package:app_skin_mate/AppointmentScreens/family_Setup_Profile/familyEditProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -72,7 +72,7 @@ Widget bottomscreen(BuildContext context) {
                 padding: const EdgeInsets.only(left: 70.0),
                 child: FlatButton(
                   onPressed: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => family_SetProfile()))
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => familyEdit()))
                   },
                   child: Row(
                     children: <Widget>[

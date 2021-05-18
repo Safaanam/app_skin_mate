@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:app_skin_mate/AppointmentScreens/noAppointment.dart';
-import 'package:app_skin_mate/ProfileSetupScreens/SetProfile.dart';
 import 'package:app_skin_mate/Screens/WelcomeScreen.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/Notifications.dart';
@@ -78,7 +75,6 @@ class _UserProfileState extends State<UserProfile> {
                   height: 102.0,
                   child: GestureDetector(
                     onTap: () async {
-                      viewCustomer();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (_) => user_EditProfile()));
                     },
@@ -102,7 +98,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       ),
                       title: Text(
-                        "Naleem Gill",
+                        "Safa Anam",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17.0,
@@ -261,22 +257,5 @@ class _UserProfileState extends State<UserProfile> {
         ),
       ),
     );
-  }
-  Future viewCustomer() async {
-    final storage = FlutterSecureStorage();
-    var cust_Id = await storage.read(key: "cust_id");
-    String token = await storage.read(key: "token");
-    var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/view");
-    Map mapeddata = {
-      'customerId' : cust_Id,
-    };
-    http.Response response = await http.post(APIURL,
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'},
-        body: jsonEncode(mapeddata));
-    var data = jsonDecode(response.body);
-    print("DATA: ${data}");
-    var code = (data[0]['Code']);
-    print(code);
-//if (code == 200)
   }
 }

@@ -69,8 +69,10 @@ class _doctor_SelectionState extends State<doctor_Selection> {
                           itemBuilder: (context, index){
                             return InkWell(
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (_) => dateTimeSelect()));
-                                //color:Color(0xffF3F6F8);
+                                setState(() {
+                                  Navigator.push(context, MaterialPageRoute(builder: (_) => dateTimeSelect()));
+                                  docSelected=true;
+                                });
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -102,13 +104,13 @@ class _doctor_SelectionState extends State<doctor_Selection> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                        padding: const EdgeInsets.only(left: 80.0),
+                                    /*Padding(
+                                        padding: const EdgeInsets.only(left: 75.0),
                                         child: Container(
                                             width: 30,
                                             height: 30,
                                             child: Image.asset(setImage()))
-                                    ),
+                                    ),*/
                                   ],
                                 ),
                               ),
@@ -118,14 +120,16 @@ class _doctor_SelectionState extends State<doctor_Selection> {
                       );
                     }
                   }),
-              Padding(
+              /*Padding(
                 padding: const EdgeInsets.only(top: 60.0),
                 child: ButtonTheme(
                   child: Container(
                     width: 335.0,
                     height: 50.0,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => dateTimeSelect()));
+                      },
                       style: ElevatedButton.styleFrom(
                           primary: docSelected
                               ? Color(0xff749BAD)
@@ -141,7 +145,7 @@ class _doctor_SelectionState extends State<doctor_Selection> {
                     ),
                   ),
                 ),
-              ),
+              ),*/
 
             ],
           ),
