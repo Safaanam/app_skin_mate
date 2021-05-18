@@ -1,5 +1,8 @@
+import 'package:app_skin_mate/AppointmentScreens/noAppointment.dart';
 import 'package:app_skin_mate/ProfileSetupScreens/SetProfile.dart';
 import 'package:app_skin_mate/Screens/WelcomeScreen.dart';
+import 'package:app_skin_mate/Screens/homePage.dart';
+import 'package:app_skin_mate/homePage_profileScreens/models/Notifications.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/first_Container.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/second_Container.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/third_Container.dart';
@@ -16,6 +19,13 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   bool isSwitched = true;
   final storage = FlutterSecureStorage();
+  int _selectedIndex = 3;
+
+  void _onItemTapped(int i) {
+    setState(() {
+      _selectedIndex = i;
+    });
+  }
 
   /*checkBio() async {
     String bio = await storage.read(key: "bio");
@@ -195,6 +205,58 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ],
             )),
+      ),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0),),
+        child: BottomNavigationBar(
+          backgroundColor: Color(0xFF2B404A),
+          type: BottomNavigationBarType.fixed,
+          items:  <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: IconButton(icon: Icon(Icons.home_outlined),
+                iconSize:35.0,
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => homePage()));
+                },
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: IconButton(icon: Icon(Icons.event_note_outlined),
+                iconSize:35.0,
+                onPressed: ()  {
+                  /*if(_hasAppointments)
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => listAppointments()));
+                  else */
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NoAppointment()));
+                },
+              ),
+              label: 'Appointment',
+            ),
+            BottomNavigationBarItem(
+              icon: IconButton(icon: Icon(Icons.notifications_none_outlined),
+                iconSize:35.0,
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Notifications()));
+                },
+              ),
+              label: 'Notifications',
+            ),
+            BottomNavigationBarItem(
+              icon: IconButton(icon: Icon(Icons.person_outline_outlined),
+                iconSize:35.0,
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => UserProfile()));
+                },
+              ),
+              label: 'Account',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Color(0xff608597),
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
