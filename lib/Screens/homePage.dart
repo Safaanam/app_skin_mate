@@ -1,4 +1,5 @@
 import 'package:app_skin_mate/AppointmentScreens/Models/ServiceTypes.dart';
+import 'package:app_skin_mate/AppointmentScreens/Models/listAppointments.dart';
 import 'package:app_skin_mate/AppointmentScreens/noAppointment.dart';
 import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/Notifications.dart';
@@ -15,6 +16,7 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   List<Services> serviceList;
+  bool hasAppointments = true;
   @override
   void initState(){
     super.initState();
@@ -157,9 +159,9 @@ class _homePageState extends State<homePage> {
                 icon: IconButton(icon: Icon(Icons.event_note_outlined),
                   iconSize:35.0,
                   onPressed: ()  {
-                  /*if(_hasAppointments)
+                  if(hasAppointments)
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => listAppointments()));
-                  else */
+                  else
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NoAppointment()));
                   },
                 ),
