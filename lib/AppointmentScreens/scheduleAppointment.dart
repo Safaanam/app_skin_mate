@@ -22,9 +22,7 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
   }
   @override
   Widget build(BuildContext context) {
-
     var selectedId = (ModalRoute.of(context).settings.arguments as Map)["selectedId"];
-
     return Scaffold(
           appBar: AppBar(
             leading: Container(
@@ -111,7 +109,7 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
                                                 image: AssetImage('assets/user_Profile/Daily_Checkup.png'),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 10.0),
+                                                padding: const EdgeInsets.only(left: 6),
                                                 child: Text("${snapshot.data[index].subserviceType}",
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
