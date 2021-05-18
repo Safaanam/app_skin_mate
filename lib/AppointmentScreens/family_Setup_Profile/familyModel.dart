@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-Future getFamilyInfo() async {
-  int index;
+Future<List<familyMembers>> getFamilyInfo() async {
+  List<familyMembers> famList;
   final storage = FlutterSecureStorage();
   var cust_Id = await storage.read(key: "cust_id");
   String APIURL = 'http://65.0.55.180/secured/skinmate/v1.0/customer/family-member/list/'+cust_Id.toString();
@@ -22,16 +22,12 @@ Future getFamilyInfo() async {
   );
   var ConvertedData = jsonDecode(response.body);
   var code = (ConvertedData[0]['Code']);
-  print(code);
-  var familyList = (ConvertedData[0]["responseInformation"]);
-  print(familyList);
+  //print(code);
+  var familyList = (ConvertedData[0]["responseInformation"]) as List;
+  print("fam: $familyList");
   if(code == 200 ) {
-    for(index=0;index<familyList.length;index++) {
-      var fName = familyList[index]['firstName'];
-      var lName = familyList[index]['lastName'];
-      var data= fName + " " + lName;
-      return data;
-    }
+    famList = familyList.map<familyMembers>((json) => familyMembers.fromJson(json)).toList();
+    return famList;
   }
   else print('error in fetching familyLists');
 }
@@ -41,13 +37,15 @@ class familyMembers {
 
   int familyProfileId;
   String firstName;
+  String lastName;
 
-  familyMembers({this.familyProfileId, this.firstName});
+  familyMembers({this.familyProfileId, this.firstName, this.lastName});
 
-  factory familyMembers.fromJson(Map<String, dynamic> json) {
+ factory familyMembers.fromJson(Map<String, dynamic> json) {
     return familyMembers(
       familyProfileId: json['familyProfileId'],
       firstName: json['firstName'],
+      lastName: json['lastName'],
     );
   }
 

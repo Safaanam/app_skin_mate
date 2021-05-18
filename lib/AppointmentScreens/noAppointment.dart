@@ -1,4 +1,5 @@
 import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
+import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:flutter/material.dart';
 
 
@@ -79,7 +80,7 @@ class _NoAppointmentState extends State<NoAppointment> {
                     ),
                     textColor: Color(0xffFFFFFF),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => scheduleAppoitment()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => homePage()));
                     },
                   ),
                 ),
