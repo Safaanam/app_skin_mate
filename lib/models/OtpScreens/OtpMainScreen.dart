@@ -9,6 +9,7 @@ import 'dart:convert';
 
 TextEditingController _otp = TextEditingController();
 var Phonenum;
+@override
 void initState() {
   getSignupValues();
 }
@@ -76,8 +77,8 @@ Widget OtpScreen(BuildContext context) {
                             .size
                             .width,
                         height: 60,
-                        child: Text("Please enter OTP sent to\n"
-                            "(598) 4995515",
+                        child: Text("Please enter OTP sent\n"
+                            "to your phone Number",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 14.0,

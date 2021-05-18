@@ -1,6 +1,15 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-Widget deleteAlert(BuildContext context) {
+import 'package:app_skin_mate/homePage_profileScreens/userProfile.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
+
+final storage = FlutterSecureStorage();
+var code;
+
+Future<Widget> deleteAlert(BuildContext context) async{
+  String memName = await storage.read(key: "memName");
   Navigator.pop(context);
   showDialog(
       context: context,
@@ -55,7 +64,7 @@ Widget deleteAlert(BuildContext context) {
                     child: Container(
                         width: 225.0,
                         height: 60.0,
-                        child: Text("'Tylor Swift' ?",
+                        child: Text("$memName",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 14.0,
@@ -95,7 +104,23 @@ Widget deleteAlert(BuildContext context) {
                               bottomRight: Radius.circular(32.0)),
                         ),
                         child: GestureDetector(
-                          onTap: () {
+                          onTap: () async{
+                           await deleteFamilyMember();
+                           if(code == 200)
+                             {
+                               final snackBar = SnackBar(
+                                 content: Text('Deleted $memName Succesfully'),
+                               );
+                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => UserProfile()), (route) => false);
+                             }
+                           else
+                             {
+                               final snackBar1 = SnackBar(
+                                 content: Text('Could not delete $memName '),
+                               );
+                               ScaffoldMessenger.of(context).showSnackBar(snackBar1);
+                             }
                           },
                           child: Text("YES",
                             style: TextStyle(color: Color(0xffFFFFFF),fontWeight: FontWeight.bold,),
@@ -111,4 +136,20 @@ Widget deleteAlert(BuildContext context) {
           ),
         );
       });
+
+}
+
+Future deleteFamilyMember() async {
+  String token = await storage.read(key: "token");
+  String familyProfileId = await storage.read(key: "fam_Id");
+  String APIURL= 'http://65.0.55.180/secured/skinmate/v1.0/customer/family-member/delete/'+familyProfileId.toString();
+  final http.Response response = await http.delete(
+    Uri.parse(APIURL),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+  var ConvertedData = jsonDecode(response.body);
+  code = (ConvertedData[0]['Code']);
 }

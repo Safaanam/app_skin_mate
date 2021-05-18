@@ -1,4 +1,5 @@
-import 'package:app_skin_mate/ProfileSetupScreens/SetProfile.dart';
+import 'dart:convert';
+
 import 'package:app_skin_mate/Screens/WelcomeScreen.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/first_Container.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/second_Container.dart';
@@ -7,6 +8,7 @@ import 'package:app_skin_mate/homePage_profileScreens/user_EditProfile.dart';
 import 'package:app_skin_mate/models/local_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 
 class UserProfile extends StatefulWidget {
   @override
@@ -66,7 +68,7 @@ class _UserProfileState extends State<UserProfile> {
                   height: 102.0,
                   child: GestureDetector(
                     onTap: () async {
-                      getUserData();
+                      viewCustomer();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (_) => user_EditProfile()));
                     },
@@ -123,13 +125,7 @@ class _UserProfileState extends State<UserProfile> {
                         width: MediaQuery.of(context).size.width,
                         height: 60.0,
                         child: GestureDetector(
-                          onTap: () {
-                              /*Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => WelcomeScreen())); */
-
-                          },
+                          onTap: () {},
                           child: ListTile(
                             leading: Container(
                               width: 50.0,
@@ -197,5 +193,22 @@ class _UserProfileState extends State<UserProfile> {
             )),
       ),
     );
+  }
+  Future viewCustomer() async {
+    final storage = FlutterSecureStorage();
+    var cust_Id = await storage.read(key: "cust_id");
+    String token = await storage.read(key: "token");
+    var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/view");
+    Map mapeddata = {
+      'customerId' : cust_Id,
+    };
+    http.Response response = await http.post(APIURL,
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'},
+        body: jsonEncode(mapeddata));
+    var data = jsonDecode(response.body);
+    print("DATA: ${data}");
+    var code = (data[0]['Code']);
+    print(code);
+    //if (code == 200)
   }
 }

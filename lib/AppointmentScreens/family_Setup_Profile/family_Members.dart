@@ -1,6 +1,7 @@
 import 'package:app_skin_mate/AppointmentScreens/family_Setup_Profile/familyModel.dart';
 import 'package:app_skin_mate/AppointmentScreens/family_Setup_Profile/family_ProfileSetup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class family_Members extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class family_Members extends StatefulWidget {
 }
 
 class _family_MembersState extends State<family_Members> {
+  final storage = FlutterSecureStorage();
+  var memName;
   @override
   void initState() {
     getFamilyInfo();
@@ -78,6 +81,8 @@ class _family_MembersState extends State<family_Members> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return InkWell(
+                              onTap:(){
+                              },
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 height: 75.0,
@@ -116,7 +121,11 @@ class _family_MembersState extends State<family_Members> {
                                           left: 110.0, bottom: 10.0),
                                       child: Container(
                                         child: GestureDetector(
-                                            onTap: () {
+                                            onTap: () async{
+                                              var fam_Id= snapshot.data[index].familyProfileId.toString();
+                                              memName= snapshot.data[index].firstName + " " + snapshot.data[index].lastName;
+                                              await storage.write(key: "fam_Id", value: fam_Id);
+                                              await storage.write(key: "memName", value: memName);
                                               bottomscreen(context);
                                             },
                                             child: Text(

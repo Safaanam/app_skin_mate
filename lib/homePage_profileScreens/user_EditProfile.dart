@@ -424,7 +424,7 @@ class _user_EditProfileState extends State<user_EditProfile> {
     }
   }
   Future registerUser() async {
-    var APIURL = Uri.parse("http://65.0.55.180/skinmate/v1.0/customer/registration");
+    var APIURL = Uri.parse(" http://65.0.55.180/secured/skinmate/v1.0/customer/view");
     flutter= "Flutter";
     Map mapeddata = {
       'phoneNumber': Phonenum,

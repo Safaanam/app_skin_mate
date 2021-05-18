@@ -11,7 +11,6 @@ Future<List<familyMembers>> getFamilyInfo() async {
   var cust_Id = await storage.read(key: "cust_id");
   String APIURL = 'http://65.0.55.180/secured/skinmate/v1.0/customer/family-member/list/'+cust_Id.toString();
   var url = Uri.parse(APIURL);
-  print('url : $APIURL');
   String token = await storage.read(key: "token");
   final response = await http.get(
     url,
@@ -22,10 +21,8 @@ Future<List<familyMembers>> getFamilyInfo() async {
   );
   var ConvertedData = jsonDecode(response.body);
   var code = (ConvertedData[0]['Code']);
-  //print(code);
   var familyList = (ConvertedData[0]["responseInformation"]) as List;
-  print("fam: $familyList");
-  if(code == 200 ) {
+  if(code == 200 && familyList != null) {
     famList = familyList.map<familyMembers>((json) => familyMembers.fromJson(json)).toList();
     return famList;
   }
