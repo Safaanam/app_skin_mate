@@ -58,7 +58,6 @@ class _UserProfileState extends State<UserProfile> {
       print('Switch Button is OFF');
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
