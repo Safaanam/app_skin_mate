@@ -22,9 +22,6 @@ class _homePageState extends State<homePage> {
   }
   int _selectedIndex = 0;
   bool _hasAppointments = false;
-  static const TextStyle optionStyle = TextStyle(color: Color(0xff608597),fontSize: 10, fontWeight: FontWeight.bold);
-
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -90,9 +87,7 @@ class _homePageState extends State<homePage> {
                 future: fetchServices(),
                   builder: (context, snapshot) {
                   if (snapshot.hasData) {
-
                     serviceList = snapshot.data;
-
                     return GridView.builder(
                       physics: BouncingScrollPhysics(),
                       shrinkWrap: true,

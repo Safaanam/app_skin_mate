@@ -32,9 +32,9 @@ class _user_EditProfileState extends State<user_EditProfile> {
   @override
   void initState() {
     super.initState();
-    genders.add(new Gender("Male",'assets/Profile_Images/male.png' , false));
-    genders.add(new Gender("Female",'assets/Profile_Images/female.png' , false));
-    genders.add(new Gender("Others",'assets/Profile_Images/other.png' , false));
+    genders.add(new Gender("1","Male",'assets/Profile_Images/male.png' , false));
+    genders.add(new Gender("2","Female",'assets/Profile_Images/female.png' , false));
+    genders.add(new Gender("3","Others",'assets/Profile_Images/other.png' , false));
     _location.addListener(() {
       setState(() {}); // setState every time text changes
     });

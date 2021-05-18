@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:app_skin_mate/ProfileSetupScreens/Gender.dart';
-import 'package:app_skin_mate/Screens/homePage.dart';
+import 'package:app_skin_mate/homePage_profileScreens/userProfile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -20,12 +20,8 @@ class _family_SetProfileState extends State<family_SetProfile> {
   DateTime _selectedDate;
   Position _currentPosition;
   String _currentAddress;
-  String Phonenum;
-  String emailll;
-  String pasword;
   bool Genderselected= false;
   var gender;
-  var flutter;
   var code;
   TextEditingController _firstName = TextEditingController();
   TextEditingController _lastName = TextEditingController();
@@ -39,10 +35,9 @@ class _family_SetProfileState extends State<family_SetProfile> {
   @override
   void initState() {
     super.initState();
-    getSignupValues();
-    genders.add(new Gender("Male",'assets/Profile_Images/male.png' , false));
-    genders.add(new Gender("Female",'assets/Profile_Images/female.png' , false));
-    genders.add(new Gender("Others",'assets/Profile_Images/other.png' , false));
+    genders.add(new Gender("1","Male",'assets/Profile_Images/male.png' , false));
+    genders.add(new Gender("2","Female",'assets/Profile_Images/female.png' , false));
+    genders.add(new Gender("3","Others",'assets/Profile_Images/other.png' , false));
     _firstName.addListener(() {
       setState(() {}); // setState every time text changes
     });
@@ -70,12 +65,6 @@ class _family_SetProfileState extends State<family_SetProfile> {
     _emergencyNum.addListener(() {
       setState(() {}); // setState every time text changes
     });
-  }
-  getSignupValues() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Phonenum = prefs.getString('PhoneNumber') ?? '';
-    emailll = prefs.getString('email') ?? '';
-    pasword = prefs.getString('password') ?? '';
   }
   String validateMobile(String value) {
     String patttern = r'^(?:[+0]9)?[0-9]{10}$';
@@ -191,7 +180,7 @@ class _family_SetProfileState extends State<family_SetProfile> {
                             genders.forEach((gender) => gender.isSelected = false);
                             genders[index].isSelected = true;
                             Genderselected= true;
-                            gender= genders[index].name;
+                            gender= genders[index].val;
                           });
                         },
                         child: CustomRadio(genders[index]),
@@ -526,7 +515,7 @@ class _family_SetProfileState extends State<family_SetProfile> {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                       else if(formkey.currentState.validate()) {
-                        registerUser();
+                        addFamilyMember();
                       };
                     },
                     child: Text('CREATE MY ACCOUNT',
@@ -612,31 +601,35 @@ class _family_SetProfileState extends State<family_SetProfile> {
       print(e);
     }
   }
-  Future registerUser() async {
-    var APIURL = Uri.parse("http://65.0.55.180/skinmate/v1.0/customer/registration");
-    flutter= "Flutter";
+  Future addFamilyMember() async {
+    final storage = FlutterSecureStorage();
+    var cust_Id = await storage.read(key: "cust_id");
+    String token = await storage.read(key: "token");
+    var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/family/add");
     Map mapeddata = {
-      'phoneNumber': Phonenum,
-      'email': emailll,
+      'customerId':cust_Id,
+      'relationshipId':_relationship.text,
       'firstName': _firstName.text,
       'lastName': _lastName.text,
       'gender': gender,
       'dob': _dob.text,
       'bloodGroup': _bloodGroup.text,
-      'loginType': flutter,
-      'password': pasword,
       'address': _location.text,
-      'emeregencyNumber': _emergencyNum.text,
       'insuranceInformation': _insurance.text,
-      'emeregencyContactName': _emergencyName.text
+      'emeregencyContactName': _emergencyName.text,
+      'emeregencyNumber': _emergencyNum.text
     };
     print("JSON DATA: ${mapeddata}");
-    http.Response response = await http.post(APIURL, body: jsonEncode(mapeddata));
+    http.Response response = await http.post(APIURL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },body: jsonEncode(mapeddata));
     var data = jsonDecode(response.body);
     print("DATA: ${data}");
     var code = (data[0]['Code']);
     if (code == 200)
-      Navigator.push(context, MaterialPageRoute(builder: (_) => homePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => UserProfile()));
   }
 }
 

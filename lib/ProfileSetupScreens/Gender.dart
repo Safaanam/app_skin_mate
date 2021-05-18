@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Gender {
+  String val;
   String name;
   String imageUrl;
   bool isSelected;
 
-  Gender(this.name, this.imageUrl, this.isSelected);
+  Gender(this.val,this.name, this.imageUrl, this.isSelected);
 }
 
 class CustomRadio extends StatefulWidget {

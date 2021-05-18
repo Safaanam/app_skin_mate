@@ -14,15 +14,11 @@ class scheduleAppoitment extends StatefulWidget {
 }
 
 class _scheduleAppoitmentState extends State<scheduleAppoitment> {
-  List<Service> serve = new List<Service>();
   Future<List<subServices>> subserve;
   bool isSelected = false;
+
   @override
   void initState() {
-    //subserve = getSubService(int);
-
-    //serve.add(new Service("General Meet",'assets/user_Profile/doc.png', false));
-    //serve.add(new Service("Daily Checkup",'assets/user_Profile/Daily_Checkup.png', false));
   }
   @override
   Widget build(BuildContext context) {

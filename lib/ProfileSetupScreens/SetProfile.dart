@@ -68,9 +68,9 @@ class _SetProfileState extends State<SetProfile> {
   void initState() {
     super.initState();
     getSignupValues();
-    genders.add(new Gender("Male",'assets/Profile_Images/male.png' , false));
-    genders.add(new Gender("Female",'assets/Profile_Images/female.png' , false));
-    genders.add(new Gender("Others",'assets/Profile_Images/other.png' , false));
+    genders.add(new Gender("1","Male",'assets/Profile_Images/male.png' , false));
+    genders.add(new Gender("2","Female",'assets/Profile_Images/female.png' , false));
+    genders.add(new Gender("3","Others",'assets/Profile_Images/other.png' , false));
     _firstName.addListener(() {
       setState(() {}); // setState every time text changes
     });
