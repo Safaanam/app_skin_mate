@@ -1,15 +1,18 @@
 import 'package:app_skin_mate/AppointmentScreens/noAppointment.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
+import 'package:app_skin_mate/homePage_profileScreens/models/Notifications.dart';
 import 'package:app_skin_mate/homePage_profileScreens/userProfile.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class Notifications extends StatefulWidget {
+class listAppointments extends StatefulWidget {
   @override
-  _NotificationsState createState() => _NotificationsState();
+  _listAppointmentsState createState() => _listAppointmentsState();
 }
 
-class _NotificationsState extends State<Notifications> {
-  int _selectedIndex = 2;
+class _listAppointmentsState extends State<listAppointments> {
+  int _selectedIndex = 1;
 
   void _onItemTapped(int i) {
     setState(() {
@@ -20,24 +23,16 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 200.0),
-              child: Center(
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 60,
-                    child: Text("There are no Notifications yet",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
-                          color: Color(0xff2A3E49)
-                      ),)),
+        child: Container(
+          color: Color(0xffECEFF3),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+              Padding(padding: EdgeInsets.only(top: 40)
+
               ),
-            ),
-          ],
+              ]
+          ),
         ),
       ),
       bottomNavigationBar: ClipRRect(
@@ -92,6 +87,7 @@ class _NotificationsState extends State<Notifications> {
           onTap: _onItemTapped,
         ),
       ),
+
     );
   }
 }

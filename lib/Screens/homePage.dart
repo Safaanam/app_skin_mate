@@ -1,4 +1,5 @@
 import 'package:app_skin_mate/AppointmentScreens/Models/ServiceTypes.dart';
+import 'package:app_skin_mate/AppointmentScreens/Models/listAppointments.dart';
 import 'package:app_skin_mate/AppointmentScreens/noAppointment.dart';
 import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/Notifications.dart';
@@ -14,18 +15,17 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  Future<List<Services>> serv;
   List<Services> serviceList;
+  bool hasAppointments = true;
   @override
   void initState(){
     super.initState();
   }
   int _selectedIndex = 0;
-  bool _hasAppointments = false;
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int i) {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = i;
     });
   }
 
@@ -33,9 +33,7 @@ class _homePageState extends State<homePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-
         child: Column(
-
            mainAxisAlignment: MainAxisAlignment.start,
           //physics: AlwaysScrollableScrollPhysics(),
             children: <Widget>[
@@ -140,7 +138,6 @@ class _homePageState extends State<homePage> {
                   }
               ),
             ],
-
         ),
       ),
       bottomNavigationBar: ClipRRect(
@@ -162,10 +159,10 @@ class _homePageState extends State<homePage> {
                 icon: IconButton(icon: Icon(Icons.event_note_outlined),
                   iconSize:35.0,
                   onPressed: ()  {
-                  /*if(_hasAppointments)
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => SearchPage()));
-                  else */
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => NoAppointment()));
+                  if(hasAppointments)
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => listAppointments()));
+                  else
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NoAppointment()));
                   },
                 ),
                 label: 'Appointment',
@@ -174,7 +171,7 @@ class _homePageState extends State<homePage> {
                 icon: IconButton(icon: Icon(Icons.notifications_none_outlined),
                   iconSize:35.0,
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => Notifications()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Notifications()));
                   },
                 ),
                 label: 'Notifications',
@@ -183,7 +180,7 @@ class _homePageState extends State<homePage> {
                 icon: IconButton(icon: Icon(Icons.person_outline_outlined),
                   iconSize:35.0,
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => UserProfile()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => UserProfile()));
                   },
                 ),
                 label: 'Account',
