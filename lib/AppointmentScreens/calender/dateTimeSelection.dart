@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/AppointmentScreens/Summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -259,7 +260,9 @@ class _dateTimeSelectState extends State<dateTimeSelect> {
                       side: BorderSide(color: Colors.blueGrey[100]),
                     ),
                     textColor: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => summaryScreen()));
+                    },
                   ),
                 ),
               ),
