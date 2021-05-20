@@ -17,6 +17,13 @@ class _forgotPasswordState extends State<forgotPassword> {
   var email;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController _idController = TextEditingController();
+  void initState() {
+    super.initState();
+    _idController.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +46,7 @@ class _forgotPasswordState extends State<forgotPassword> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 0.0),
+          padding: EdgeInsets.fromLTRB(10.0, 70.0, 10.0, 0.0),
           child: Form(
             autovalidateMode: AutovalidateMode.always,
             key: formkey,
@@ -72,9 +79,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                     child: ElevatedButton(
                         child: Text('CONTINUE',),
                         style: ElevatedButton.styleFrom(
-                          onSurface: Color(0xffCCD0D5),
-                          primary: Color(0xff749BAD),
-                          onPrimary: Colors.white,
+                          primary: (_idController.text.isEmpty) ? Color(0xffCCD0D5) : Color(0xff749BAD),
                           textStyle: TextStyle(
                             fontFamily: 'Poppins-Bold',
                             color: Colors.white,

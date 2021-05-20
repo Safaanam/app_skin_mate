@@ -52,6 +52,10 @@ Widget walkIn(BuildContext context) {
                 Padding(
                   padding: const EdgeInsets.only(top: 35.0),
                   child: InkWell(
+                    child: GestureDetector(
+                      onTap: () {
+                        callIn(context);
+                      },
                     child: Container(
                       width: 276.0,
                       height: 50.0,
@@ -60,10 +64,6 @@ Widget walkIn(BuildContext context) {
                         borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(32.0)),
                       ),
-                      child: GestureDetector(
-                        onTap: () {
-                          callIn(context);
-                      },
                         child: Center(
                           child: Text("OKAY",
                             style: TextStyle(color: Color(0xffFFFFFF),fontWeight: FontWeight.bold,fontSize: 15.0),

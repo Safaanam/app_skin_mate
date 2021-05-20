@@ -584,11 +584,14 @@ class _familyEditState extends State<familyEdit> {
       body: json.encode(mapeddata),
     );
     var data = jsonDecode(response.body);
-    print(data);
     var code = (data[0]['Code']);
-    print(code);
-    if (code == 200)
+    if (code == 200) {
       Navigator.push(context, MaterialPageRoute(builder: (_) => UserProfile()));
+      final snackBar = SnackBar(
+        content: Text("Succesfully Edited"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
 

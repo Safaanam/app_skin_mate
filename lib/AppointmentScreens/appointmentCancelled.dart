@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:app_skin_mate/models/OtpScreens/OtpMainScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -61,8 +62,7 @@ Widget apointmentCancelledAlert(BuildContext context) {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
-                          OtpScreen(context);
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => homePage()));
                         },
                         child: Center(
                           child: Text("OKAY",

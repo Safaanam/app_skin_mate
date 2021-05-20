@@ -10,9 +10,27 @@ final storage = FlutterSecureStorage();
 
 TextEditingController _insurance = TextEditingController();
 
-class addInsurance extends StatelessWidget {
+class addInsurance extends StatefulWidget {
+  @override
+  _addInsuranceState createState() => _addInsuranceState();
+}
+
+class _addInsuranceState extends State<addInsurance> {
   var cust_Id;
   String token;
+  @override
+  void initState() {
+    super.initState();
+    _insurance.addListener(() {
+      setState(() {});
+    });
+  }
+  @override
+  void dispose() {
+    _insurance.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +102,7 @@ class addInsurance extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
                 else{
-                 await  addInsuranceInfo(context);
+                 await  addInsuranceInfo();
                 }
               },
               child: Text('SUBMIT',
@@ -105,7 +123,8 @@ class addInsurance extends StatelessWidget {
       ),
     );
   }
-  Future addInsuranceInfo(context) async {
+
+  Future addInsuranceInfo() async {
     cust_Id = await storage.read(key: "cust_id");
     token = await storage.read(key: "token");
     var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/insurance/add");
@@ -118,7 +137,12 @@ class addInsurance extends StatelessWidget {
         body: jsonEncode(mapeddata));
     var data = jsonDecode(response.body);
     var code = (data[0]['Code']);
-    if (code == 200)
+    if (code == 200) {
       Navigator.push(context, MaterialPageRoute(builder: (_) => UserProfile()));
+      final snackBar = SnackBar(
+        content: Text("Insurance added succesfully"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }

@@ -11,9 +11,7 @@ Future<List<subServices>> getSubService(int index) async {
       'http://65.0.55.180/secured/skinmate/v1.0/subtype-of-service/list/' +
           index.toString();
   var url = Uri.parse(APIURL);
-  print('url : $APIURL');
   String token = await storage.read(key: "token");
-  print(token);
   final response = await http.get(
     url,
     headers: {
@@ -26,7 +24,6 @@ Future<List<subServices>> getSubService(int index) async {
   var subserviceList = ConvertedData[0]["responseInformation"];
 
   if (code == 200) {
-    print(subserviceList);
     subList = subserviceList.entries
         .map<subServices>((entry) => subServices(entry.value))
         .toList();

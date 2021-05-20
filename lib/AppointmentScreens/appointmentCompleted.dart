@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:flutter/material.dart';
 
 class appoitmentComplete extends StatefulWidget {
@@ -165,7 +166,9 @@ class _appoitmentCompleteState extends State<appoitmentComplete> {
                     width: 335.0,
                     height: 50.0,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => homePage()));
+                      },
                       style: ElevatedButton.styleFrom(
                           primary: Color(0xff749BAD),
                           shape: RoundedRectangleBorder(

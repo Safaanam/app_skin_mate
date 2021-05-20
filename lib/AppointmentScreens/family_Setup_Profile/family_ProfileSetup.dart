@@ -628,8 +628,13 @@ class _family_SetProfileState extends State<family_SetProfile> {
     var data = jsonDecode(response.body);
     print("DATA: ${data}");
     var code = (data[0]['Code']);
-    if (code == 200)
+    if (code == 200) {
       Navigator.push(context, MaterialPageRoute(builder: (_) => UserProfile()));
+      final snackBar = SnackBar(
+        content: Text("Family Member added succesfully"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
 

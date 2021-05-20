@@ -63,7 +63,7 @@ class _profileChangePwState extends State<profileChangePw> {
       ),
       body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 0.0),
+            padding: EdgeInsets.fromLTRB(10.0, 70.0, 10.0, 0.0),
               child: Form(
                 autovalidateMode: AutovalidateMode.always,
                 key: formkey,
@@ -75,7 +75,7 @@ class _profileChangePwState extends State<profileChangePw> {
                           style: TextStyle(
                               color: Color(0xff02122C),
                               fontFamily: 'Poppins-Medium',
-                              fontSize: 18.0),
+                              fontSize: 12.0),
                         ),
                         SizedBox(height: 5.0),
                         TextFormField(
@@ -83,6 +83,10 @@ class _profileChangePwState extends State<profileChangePw> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter Current Password',
+                            hintStyle: TextStyle(
+                              color: Color(0xff02122C),
+                              fontSize: 12.0,
+                            ),
                             suffixIcon: IconButton(
                                 icon: Icon(_passwordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,),
                                 onPressed: () {
@@ -98,7 +102,7 @@ class _profileChangePwState extends State<profileChangePw> {
                           style: TextStyle(
                               color: Color(0xff02122C),
                               fontFamily: 'Poppins-Medium',
-                              fontSize: 18.0),
+                              fontSize: 12.0),
                         ),
                         SizedBox(height: 5.0),
                         TextFormField(
@@ -106,6 +110,10 @@ class _profileChangePwState extends State<profileChangePw> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter New Password',
+                            hintStyle: TextStyle(
+                              color: Color(0xff02122C),
+                              fontSize: 12.0,
+                            ),
                             suffixIcon: IconButton(
                                 icon: Icon(_passwordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,),
                                 onPressed: () {
@@ -121,7 +129,7 @@ class _profileChangePwState extends State<profileChangePw> {
                           style: TextStyle(
                               color: Color(0xff02122C),
                               fontFamily: 'Poppins-Medium',
-                              fontSize: 18.0),
+                              fontSize: 12.0),
                         ),
                         SizedBox(height: 5.0),
                         TextFormField(
@@ -129,6 +137,10 @@ class _profileChangePwState extends State<profileChangePw> {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter Password',
+                              hintStyle: TextStyle(
+                                color: Color(0xff02122C),
+                                fontSize: 12.0,
+                              ),
                               suffixIcon: IconButton(
                                   icon: Icon(_passwordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,),
                                   onPressed: () {
@@ -147,9 +159,8 @@ class _profileChangePwState extends State<profileChangePw> {
                           child: ElevatedButton(
                               child: Text('CHANGE PASSWORD',),
                               style: ElevatedButton.styleFrom(
-                                onSurface: Color(0xffCCD0D5),
-                                primary: Color(0xff749BAD),
-                                onPrimary: Colors.white,
+                                primary: (_pwController1.text.isEmpty || _pwController2.text.isEmpty
+                                  || _pwController3.text.isEmpty) ? Color(0xffCCD0D5) : Color(0xff749BAD),
                                 textStyle: TextStyle(
                                   fontFamily: 'Poppins-Bold',
                                   color: Colors.white,

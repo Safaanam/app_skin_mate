@@ -1,6 +1,7 @@
 import 'package:app_skin_mate/AppointmentScreens/Models/Appointment_bottom.dart';
 import 'package:app_skin_mate/AppointmentScreens/noAppointment.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
+import 'package:app_skin_mate/checkIn_Screens/checkIn_MainScreen.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/Notifications.dart';
 import 'package:app_skin_mate/homePage_profileScreens/userProfile.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +16,7 @@ class listAppointments extends StatefulWidget {
 }
 
 class _listAppointmentsState extends State<listAppointments> {
+  bool hasAppointments = true;
   int _selectedIndex = 1;
   String name = 'Self';
   String service = 'Telehealth Video Visits';
@@ -68,7 +70,7 @@ class _listAppointmentsState extends State<listAppointments> {
                                   fontSize: 14.0,
                                   color: Color(0xff25414A)
                               ),),
-                              SizedBox(width: 120),
+                              SizedBox(width: 90),
                               IconButton(icon: Icon(Icons.more_horiz_outlined),
                                   onPressed: () {
                                     appointmentBottomSheet(context);
@@ -129,7 +131,9 @@ class _listAppointmentsState extends State<listAppointments> {
                                         primary: Color(0xff749BAD),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: new BorderRadius.circular(30.0),)),
-                                    onPressed: () {  },
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (_) => checkInMain()));
+                                    },
                                   ),
                                 ),
                               ],
@@ -163,9 +167,9 @@ class _listAppointmentsState extends State<listAppointments> {
               icon: IconButton(icon: Icon(Icons.event_note_outlined),
                 iconSize:35.0,
                 onPressed: ()  {
-                  /*if(_hasAppointments)
+                  if(hasAppointments)
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => listAppointments()));
-                  else */
+                  else
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NoAppointment()));
                 },
               ),

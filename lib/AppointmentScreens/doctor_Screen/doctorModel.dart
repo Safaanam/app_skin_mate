@@ -30,13 +30,10 @@ Future<List<doctors>> getDoctor() async{
   Map mapeddata = {
     'serviceId': service_id,
   };
-  //print("JSON DATA: ${mapeddata}");
   http.Response response = await http.post(APIURL, headers: {'Authorization': 'Bearer $token'}, body: mapeddata);
   var data = jsonDecode(response.body);
   var rest = data[0]["responseInformation"] as List;
-  print("DATA: ${data}");
   var code = (data[0]['Code']);
-  //print(rest);
   if(code == 200) {
     doclist = rest.map<doctors>((json) => doctors.fromJson(json)).toList();
     return doclist;

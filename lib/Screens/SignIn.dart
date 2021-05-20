@@ -84,7 +84,7 @@ class _SignInPageState extends State<SignInPage> {
         child: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(40.0, 50.0, 40.0, 0.0),
+              padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
               child: Form(
                 autovalidateMode: AutovalidateMode.always,
                 key: formkey,
@@ -191,9 +191,8 @@ class _SignInPageState extends State<SignInPage> {
                       child: ElevatedButton(
                           child: Text('SIGN IN',),
                           style: ElevatedButton.styleFrom(
-                            onSurface: Color(0xffCCD0D5),
-                            primary: Color(0xff749BAD),
-                            onPrimary: Colors.white,
+                            primary: (_idController.text.isEmpty || _pwController.text.isEmpty)
+                              ? Color(0xffCCD0D5): Color(0xff749BAD),
                             textStyle: TextStyle(
                               fontFamily: 'Poppins-Bold',
                               color: Colors.white,
@@ -236,7 +235,7 @@ class _SignInPageState extends State<SignInPage> {
                                 final isAuthenticated = await LocalAuthApi.authenticate();
                                 print('clicked');
                                 if (isAuthenticated) {
-
+                                  //PasswordChecker();
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(builder: (context) => homePage()),
                                   );
@@ -306,7 +305,6 @@ class _SignInPageState extends State<SignInPage> {
     print("JSON DATA: ${mapeddata}");
     http.Response response = await http.post(APIURL, body: mapeddata);
     var data = jsonDecode(response.body);
-    //print("DATA: ${data}");
     await storage.write(key: "token", value: data['token']);
     await storage.write(key: "cust_id", value: data['customerId']);
     var code = (data['Code']);

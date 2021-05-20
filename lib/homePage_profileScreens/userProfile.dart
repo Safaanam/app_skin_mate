@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/AppointmentScreens/Models/listAppointments.dart';
 import 'package:app_skin_mate/AppointmentScreens/noAppointment.dart';
 import 'package:app_skin_mate/Screens/WelcomeScreen.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
@@ -17,6 +18,7 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   bool isSwitched = true;
+  bool hasAppointments = true;
   final storage = FlutterSecureStorage();
   int _selectedIndex = 3;
 
@@ -222,9 +224,9 @@ class _UserProfileState extends State<UserProfile> {
               icon: IconButton(icon: Icon(Icons.event_note_outlined),
                 iconSize:35.0,
                 onPressed: ()  {
-                  /*if(_hasAppointments)
+                  if(hasAppointments)
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => listAppointments()));
-                  else */
+                  else
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NoAppointment()));
                 },
               ),

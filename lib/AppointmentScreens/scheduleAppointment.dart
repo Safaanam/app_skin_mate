@@ -141,5 +141,4 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
     );
   }
 
-
 }

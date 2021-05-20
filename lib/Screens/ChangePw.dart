@@ -64,7 +64,7 @@ class _changePasswordState extends State<changePassword> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.fromLTRB(20.0, 70.0, 20.0, 0.0),
+          padding: EdgeInsets.fromLTRB(10.0, 70.0, 10.0, 0.0),
           child: Form(
             autovalidateMode: AutovalidateMode.always,
             key: formkey,

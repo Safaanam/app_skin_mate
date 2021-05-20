@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/AppointmentScreens/Models/listAppointments.dart';
 import 'package:app_skin_mate/AppointmentScreens/scheduleAppointment.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:app_skin_mate/homePage_profileScreens/models/Notifications.dart';
@@ -12,6 +13,7 @@ class NoAppointment extends StatefulWidget {
 
 class _NoAppointmentState extends State<NoAppointment> {
   int _selectedIndex = 1;
+  bool hasAppointments = true;
 
   void _onItemTapped(int i) {
     setState(() {
@@ -118,9 +120,9 @@ class _NoAppointmentState extends State<NoAppointment> {
               icon: IconButton(icon: Icon(Icons.event_note_outlined),
                 iconSize:35.0,
                 onPressed: ()  {
-                  /*if(_hasAppointments)
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => SearchPage()));
-                  else */
+                  if(hasAppointments)
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => listAppointments()));
+                  else
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NoAppointment()));
                   //Navigator.push(context, MaterialPageRoute(builder: (_) => NoAppointment()));
                 },

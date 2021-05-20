@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:flutter/material.dart';
 
 Widget callIn(BuildContext context) {
@@ -52,6 +53,10 @@ Widget callIn(BuildContext context) {
                 Padding(
                   padding: const EdgeInsets.only(top: 11.0),
                   child: InkWell(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => homePage()));
+                      },
                     child: Container(
                       width: 276.0,
                       height: 50.0,
@@ -68,6 +73,7 @@ Widget callIn(BuildContext context) {
                       ),
                     ),
                   ),
+                ),
               ],
             ),
           ),
