@@ -78,7 +78,7 @@ class _NoAppointmentState extends State<NoAppointment> {
                 buttonColor: Color(0xff749BAD),
                 child: Center(
                 child: Container(
-                  width: 335.0,
+                  width: MediaQuery.of(context).size.width,
                   height: 57.0,
                   child: RaisedButton(
                     child: Text('SCHEDULE APPOINTMENT',

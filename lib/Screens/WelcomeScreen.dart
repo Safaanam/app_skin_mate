@@ -21,36 +21,19 @@ class WelcomeScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
+                          fontSize: 25.0,
                           color: Color(0xff2A3E49)
                       ),)),
               ),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 70.0),
-                  child: Container(
-                      width: 130.0,
-                      height: 40,
-                      child: Text("SkinMate",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
-                        ),)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(),
-                  child: Center(
-                    child: Container(
-                        width: 70,
-                        height: 90,
-                        child: Image.asset('assets/images/logo1.jpg')),
-                  ),
-                ),
-
-              ],
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Center(
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 150,
+                    child: Image.asset('assets/images/logo3.jpg')),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 40.0),

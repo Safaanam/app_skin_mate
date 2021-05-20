@@ -84,7 +84,7 @@ class _SignInPageState extends State<SignInPage> {
         child: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 0.0),
+              padding: EdgeInsets.fromLTRB(10.0, 60.0, 10.0, 0.0),
               child: Form(
                 autovalidateMode: AutovalidateMode.always,
                 key: formkey,
@@ -98,9 +98,9 @@ class _SignInPageState extends State<SignInPage> {
                           fontFamily: 'Poppins-Medium',
                           fontSize: 12.0),
                     ),
-                    SizedBox(height: 10.0),
+                    SizedBox(height: 05.0),
                     Container(
-                      width: 335,
+                      width: MediaQuery.of(context).size.width,
                       //height: 44,
                       child: TextFormField(
                           controller: _idController,
@@ -126,9 +126,9 @@ class _SignInPageState extends State<SignInPage> {
                           fontFamily: 'Poppins-Medium',
                           fontSize: 12.0),
                     ),
-                    SizedBox(height: 10.0),
+                    SizedBox(height: 05.0),
                     Container(
-                      width: 335,
+                      width: MediaQuery.of(context).size.width,
                       //height: 44,
                       child: TextFormField(
                           controller: _pwController,
@@ -186,7 +186,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     SizedBox(height: 50.0),
                     SizedBox(
-                      width: 335,
+                      width: MediaQuery.of(context).size.width,
                       height: 50.0,
                       child: ElevatedButton(
                           child: Text('SIGN IN',),

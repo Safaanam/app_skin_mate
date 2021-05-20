@@ -123,7 +123,7 @@ class _SetProfileState extends State<SetProfile> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _firstName,
@@ -148,7 +148,7 @@ class _SetProfileState extends State<SetProfile> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _lastName,
@@ -174,10 +174,10 @@ class _SetProfileState extends State<SetProfile> {
               SizedBox(height: 10.0),
               Container(
                 height: 110.0,
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 child: ListView. separated(
                     separatorBuilder: (BuildContext context, int index)
-                    { return SizedBox(width: 10.0,); },
+                    { return SizedBox(width: 18.0,); },
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemCount: genders.length,
@@ -204,7 +204,7 @@ class _SetProfileState extends State<SetProfile> {
               ),
               SizedBox(height: 10.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _dob,
@@ -239,7 +239,7 @@ class _SetProfileState extends State<SetProfile> {
               ),
               SizedBox(height: 10.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _bloodGroup,
@@ -310,7 +310,7 @@ class _SetProfileState extends State<SetProfile> {
                 ],
               ),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _location,
@@ -335,7 +335,7 @@ class _SetProfileState extends State<SetProfile> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _insurance,
@@ -360,7 +360,7 @@ class _SetProfileState extends State<SetProfile> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _emergencyName,
@@ -385,7 +385,7 @@ class _SetProfileState extends State<SetProfile> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 //height: 44.0,
                 child: TextFormField(
                   controller: _emergencyNum,
@@ -407,7 +407,7 @@ class _SetProfileState extends State<SetProfile> {
                 padding: const EdgeInsets.only(top: 30.0),
                 child: Center(
                   child: Container(
-                      width: 336.0,
+                      width: MediaQuery.of(context).size.width,
                       height: 68.0,
                       child: Text("Note: Name, Gender, Date of Birth & Blood Group once\n" ""
                           "entered cannot be edited later.",
@@ -421,7 +421,7 @@ class _SetProfileState extends State<SetProfile> {
                 ),
               ),
               Container(
-                width: 336.0,
+                width: MediaQuery.of(context).size.width,
                 height: 85.0,
                 child: Column(
                   children: [
@@ -466,7 +466,7 @@ class _SetProfileState extends State<SetProfile> {
               ),
               ButtonTheme(
                 child: Container(
-                  width: 335.0,
+                  width: MediaQuery.of(context).size.width,
                   height: 50.0,
                   child: ElevatedButton(
                       onPressed: () async {
@@ -594,9 +594,6 @@ class _SetProfileState extends State<SetProfile> {
     if (code == 200)
       Navigator.push(context, MaterialPageRoute(builder: (_) => homePage()));
   }
-
-
-
 }
 
 

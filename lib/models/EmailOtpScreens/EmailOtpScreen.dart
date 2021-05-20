@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/models/EmailOtpScreens/EmailErrorScreen.dart';
 import 'package:app_skin_mate/models/EmailOtpScreens/EmailSuccessScreen.dart';
 import 'package:app_skin_mate/models/OtpScreens/OtpErrorScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -192,14 +193,15 @@ Future OtpChecker(BuildContext context) async {
     'email': emaill,
     'otp': _otp.text,
   };
-  http.Response response = await http.post(APIURL, body: jsonEncode(mapeddata));
+  http.Response response = await http.post(APIURL, body: mapeddata);
   var data = jsonDecode(response.body);
   print("DATA: ${data}");
   var code = (data[0]['Code']);
+  print(code);
   if (code == 200)
     return EmailSuccessAlert(context);
   else
-    return openErrorAlert(context);
+    return openEmailErrorAlert(context);
 }
 
 

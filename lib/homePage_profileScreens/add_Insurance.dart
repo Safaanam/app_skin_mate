@@ -8,8 +8,6 @@ import 'package:http/http.dart' as http;
 final storage = FlutterSecureStorage();
 
 
-TextEditingController _insurance = TextEditingController();
-
 class addInsurance extends StatefulWidget {
   @override
   _addInsuranceState createState() => _addInsuranceState();
@@ -18,17 +16,13 @@ class addInsurance extends StatefulWidget {
 class _addInsuranceState extends State<addInsurance> {
   var cust_Id;
   String token;
+  TextEditingController _insurance = TextEditingController();
   @override
   void initState() {
     super.initState();
     _insurance.addListener(() {
       setState(() {});
     });
-  }
-  @override
-  void dispose() {
-    _insurance.dispose();
-    super.dispose();
   }
 
   @override
@@ -52,7 +46,8 @@ class _addInsuranceState extends State<addInsurance> {
         brightness: Brightness.light,
         elevation: 0.0,
       ),
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 150.0),
@@ -120,6 +115,7 @@ class _addInsuranceState extends State<addInsurance> {
             ),
           ),
         ],
+      ),
       ),
     );
   }

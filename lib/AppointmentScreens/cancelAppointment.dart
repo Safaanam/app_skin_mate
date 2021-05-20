@@ -136,7 +136,7 @@ class _cancelAppoState extends State<cancelAppo> {
               padding: const EdgeInsets.only(left: 20.0,top: 60.0,right:20.0),
               child: ButtonTheme(
                 child: Container(
-                  width: 335.0,
+                  width: MediaQuery.of(context).size.width,
                   height: 50.0,
                   child: ElevatedButton(
                     onPressed: () {

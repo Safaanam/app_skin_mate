@@ -54,7 +54,7 @@ class _checkInState extends State<checkIn> {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0,top: 14.0),
                 child: Container(
-                    width: 311.0,
+                    width: MediaQuery.of(context).size.width,
                     height: 96.0,
                     child: Text("With your health & safety our number\n"
                                 "one priority against COVID-19, Are you\n"
@@ -128,7 +128,7 @@ class _checkInState extends State<checkIn> {
                 padding: const EdgeInsets.only(top:39.0),
                 child: Container(
                   constraints: BoxConstraints.expand(
-                    width: 375.0,
+                    width: MediaQuery.of(context).size.width,
                     height: 82.0
                   ),
                   decoration: BoxDecoration(

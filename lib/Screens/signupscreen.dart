@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:app_skin_mate/ProfileSetupScreens/SetProfile.dart';
+import 'package:app_skin_mate/Screens/SignIn.dart';
 import 'package:app_skin_mate/models/OtpScreens/OtpMainScreen.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
@@ -86,8 +87,9 @@ class _SignupScreenState extends State<SignupScreen> {
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(10.0, 25.0, 10.0, 0.0),
-        child: Form(
+        child: Container(
+          padding: EdgeInsets.fromLTRB(10.0, 25.0, 10.0, 0.0),
+          child: Form(
           autovalidateMode: AutovalidateMode.always,
           key: formkey,
           child: Column(
@@ -102,7 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 //height: 44.0,
                 child: TextFormField(
                   controller: _phone,
@@ -128,7 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 //height: 44.0,
                 child: TextFormField(
                     controller: _emaill,
@@ -159,7 +161,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 //height: 44.0,
                 child: TextFormField(
                     obscureText: !_passwordVisible,
@@ -208,7 +210,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 //height: 44.0,
                 child: TextFormField(
                     obscureText: !_passwordVisible,
@@ -246,11 +248,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 60.0),
+                padding: const EdgeInsets.only(left:10,top: 60.0,right:10.0),
                 //padding: EdgeInsets.symmetric(horizontal: 15),
                 child: ButtonTheme(
                   child: Container(
-                    width: 335.0,
+                    width: MediaQuery.of(context).size.width,
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
@@ -305,8 +307,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: Color(0xff749BAD)),),
                   GestureDetector(
                     onTap: () {
-                      //Navigator.push(
-                      //context, MaterialPageRoute(builder: (_) => SignInPage())); //navigate to sigin page
+                      Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => SignInPage())); //navigate to sigin page
                     },
                     child: Text(" Sign In", style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -334,6 +336,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

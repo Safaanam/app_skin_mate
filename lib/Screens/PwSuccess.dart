@@ -27,7 +27,7 @@ class _PwSuccessState extends State<PwSuccess> {
               Padding(padding: const EdgeInsets.only(top: 63.0),
                 child: Center(
                   child: Container(
-                      width: 226.0,
+                      width: MediaQuery.of(context).size.width,
                       height: 20,
                       child: Text("Success!",
                         textAlign: TextAlign.center,
@@ -43,7 +43,7 @@ class _PwSuccessState extends State<PwSuccess> {
               Padding(padding: const EdgeInsets.only(top: 30.0),
                 child: Center(
                   child: Container(
-                    width: 275.0,
+                    width: MediaQuery.of(context).size.width,
                     height: 60.0,
                     child: Text("Password has been successfully changed. \n Please login! ",
                       textAlign: TextAlign.center,

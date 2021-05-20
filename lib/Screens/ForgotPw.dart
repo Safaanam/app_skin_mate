@@ -1,6 +1,7 @@
 import 'package:app_skin_mate/models/EmailOtpScreens/EmailOtpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,6 +16,8 @@ class forgotPassword extends StatefulWidget {
 class _forgotPasswordState extends State<forgotPassword> {
   var code;
   var email;
+  String token;
+  final storage = FlutterSecureStorage();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController _idController = TextEditingController();
   void initState() {
@@ -108,6 +111,7 @@ class _forgotPasswordState extends State<forgotPassword> {
   }
 
   Future EmailOtpApi() async {
+    token = await storage.read(key: "token");
     var APIURL = Uri.parse("http://65.0.55.180/skinmate/v1.0/customer/registration-send-otp-to-email");
     Map mapeddata = {
       'email': _idController.text,};

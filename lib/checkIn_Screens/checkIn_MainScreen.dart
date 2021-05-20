@@ -36,7 +36,7 @@ class _checkInMainState extends State<checkInMain> {
                 padding: const EdgeInsets.only(left:20.0,top: 30.0,right: 20.0),
                 child: Container(
                   height: 99.0,
-                  width: 336.0,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     border: Border.all(color:  Color(0xFFE5E7E9)),
                     borderRadius: BorderRadius.only(
@@ -91,7 +91,7 @@ class _checkInMainState extends State<checkInMain> {
                 padding: const EdgeInsets.only(top:20.0),
                 child: Container(
                     constraints: BoxConstraints.expand(
-                        width: 375.0,
+                        width: MediaQuery.of(context).size.width,
                         height: 82.0
                     ),
                     decoration: BoxDecoration(
@@ -130,7 +130,7 @@ class _checkInMainState extends State<checkInMain> {
                 padding: const EdgeInsets.only(left:20.0,top: 20.0,right: 20.0),
                 child: Container(
                   height: 307.0,
-                  width: 336.0,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     border: Border.all(color:  Color(0xFFE5E7E9)),
                     borderRadius: BorderRadius.only(
@@ -246,7 +246,7 @@ class _checkInMainState extends State<checkInMain> {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(right:150.0),
+                                padding: const EdgeInsets.only(right:200.0),
                                   child: Container(
                                     width: 129.0,
                                     height: 32.0,
@@ -342,7 +342,7 @@ class _checkInMainState extends State<checkInMain> {
                 padding: const EdgeInsets.only(left: 20.0,top: 26.0,right:20.0),
                 child: ButtonTheme(
                   child: Container(
-                    width: 335.0,
+                    width: MediaQuery.of(context).size.width,
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {

@@ -124,7 +124,7 @@ class _familyEditState extends State<familyEdit> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _firstName,
@@ -145,7 +145,7 @@ class _familyEditState extends State<familyEdit> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _lastName,
@@ -167,10 +167,10 @@ class _familyEditState extends State<familyEdit> {
               SizedBox(height: 10.0),
               Container(
                 height: 110.0,
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 child: ListView. separated(
                     separatorBuilder: (BuildContext context, int index)
-                    { return SizedBox(width: 10.0,); },
+                    { return SizedBox(width: 18.0,); },
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemCount: genders.length,
@@ -197,7 +197,7 @@ class _familyEditState extends State<familyEdit> {
               ),
               SizedBox(height: 10.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _dob,
@@ -228,7 +228,7 @@ class _familyEditState extends State<familyEdit> {
               ),
               SizedBox(height: 10.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _bloodGroup,
@@ -265,7 +265,7 @@ class _familyEditState extends State<familyEdit> {
               ),
               SizedBox(height: 10.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   enabled: false,
@@ -322,7 +322,7 @@ class _familyEditState extends State<familyEdit> {
                 ],
               ),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _location,
@@ -348,7 +348,7 @@ class _familyEditState extends State<familyEdit> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _insurance,
@@ -374,7 +374,7 @@ class _familyEditState extends State<familyEdit> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 height: 44.0,
                 child: TextFormField(
                   controller: _emergencyName,
@@ -400,7 +400,7 @@ class _familyEditState extends State<familyEdit> {
               ),
               SizedBox(height: 05.0),
               Container(
-                width: 335.0,
+                width: MediaQuery.of(context).size.width,
                 //height: 44.0,
                 child: TextFormField(
                   controller: _emergencyNum,
@@ -422,7 +422,7 @@ class _familyEditState extends State<familyEdit> {
               SizedBox(height: 30.0),
               ButtonTheme(
                 child: Container(
-                  width: 335.0,
+                  width: MediaQuery.of(context).size.width,
                   height: 50.0,
                   child: ElevatedButton(
                     onPressed: () async {

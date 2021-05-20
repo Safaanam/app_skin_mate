@@ -1,7 +1,7 @@
-import 'package:app_skin_mate/Screens/ChangePw.dart';
+import 'package:app_skin_mate/models/EmailOtpScreens/EmailOtpScreen.dart';
 import 'package:flutter/material.dart';
 
-Widget EmailSuccessAlert(BuildContext context) {
+Widget openEmailErrorAlert(BuildContext context) {
   Navigator.pop(context);
   showDialog(
       context: context,
@@ -10,7 +10,7 @@ Widget EmailSuccessAlert(BuildContext context) {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(0.0),
-                topLeft: Radius.circular(32.0),
+                topLeft:  Radius.circular(32.0),
                 bottomLeft: Radius.circular(0.0),
                 bottomRight: Radius.circular(32.0)
             ),
@@ -18,18 +18,18 @@ Widget EmailSuccessAlert(BuildContext context) {
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
             width: 276.0,
-            height: 337.0,
+            height: 296.0,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 48.0),
+                  padding: const EdgeInsets.only(top: 43.0),
                   child: Center(
                     child: Container(
-                        width: 47.0,
-                        height: 48.0,
-                        child: Image.asset('assets/images/success.png')
+                        width: 43.0,
+                        height: 53.0,
+                        child: Image.asset('assets/images/error.png')
                     ),
                   ),
                 ),
@@ -39,8 +39,7 @@ Widget EmailSuccessAlert(BuildContext context) {
                     child: Container(
                         width: 226.0,
                         height: 40.0,
-                        child: Text("The OTP has been\n"
-                            " succesfully verified",
+                        child: Text("Invalid OTP",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 15.0,
@@ -51,45 +50,37 @@ Widget EmailSuccessAlert(BuildContext context) {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 22.0),
-                  child: Center(
-                    child: Container(
-                        width: 225.0,
-                        height: 78.0,
-                        child: Text("A verification mail has been\n"
-                            " sent to your mail id.Kindly verify\n"
-                            " it for proceeding.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              color: Color(0xff02122C)
-                          ),
-                        )
-                    ),
+                Center(
+                  child: Container(
+                      width: 225.0,
+                      height: 60.0,
+                      child: Text("OTP validation failed,\n""Please retry",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            color: Color(0xff02122C)
+                        ),
+                      )
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 9.0),
                   child: InkWell(
                     child: Container(
                       width: 276.0,
                       height: 50.0,
                       decoration: BoxDecoration(
-                        color: Color(0xff749BAD),
+                        color: Color(0XFF749BAD),
                         borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(32.0)),
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (_) => changePassword()));
+                          OtpEmailScreen(context);
                         },
                         child: Center(
-                          child: Text("OKAY",
-                            style: TextStyle(color: Color(0xffFFFFFF),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0),
+                          child: Text("RETRY",
+                            style: TextStyle(color: Color(0xffFFFFFF),fontWeight: FontWeight.bold,),
                           ),
                         ),
                       ),

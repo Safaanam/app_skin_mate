@@ -9,14 +9,15 @@ import 'dart:convert';
 
 TextEditingController _otp = TextEditingController();
 var Phonenum;
-@override
-void initState() {
-  getSignupValues();
-}
 getSignupValues() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   Phonenum = prefs.getString('PhoneNumber') ?? '';
 }
+@override
+void initState() {
+  getSignupValues();
+}
+
 Widget OtpScreen(BuildContext context) {
   showModalBottomSheet(
     useRootNavigator: true,
@@ -31,7 +32,7 @@ Widget OtpScreen(BuildContext context) {
           physics: AlwaysScrollableScrollPhysics(),
           child: Container(
             constraints: BoxConstraints.expand(
-                width: 375.0,
+                width: MediaQuery.of(context).size.width,
                 height: 419.0
             ),
             child: SingleChildScrollView(
@@ -42,10 +43,7 @@ Widget OtpScreen(BuildContext context) {
                     padding: const EdgeInsets.only(top: 36.5),
                     child: Center(
                       child: Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
+                        width: MediaQuery.of(context).size.width,
                         height: 60,
                         child: Text("Enter OTP",
                           textAlign: TextAlign.center,
@@ -72,10 +70,7 @@ Widget OtpScreen(BuildContext context) {
                     padding: const EdgeInsets.only(top: 29.0),
                     child: Center(
                       child: Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
+                        width: MediaQuery.of(context).size.width,
                         height: 60,
                         child: Text("Please enter OTP sent\n"
                             "to your phone Number",
