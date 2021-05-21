@@ -19,7 +19,7 @@ class _profileChangePwState extends State<profileChangePw> {
   var code;
   var cust_id = 1;
   bool _passwordVisible = true;
-  String password;
+  String password = '';
 
   void initState() {
     _passwordVisible = true;
@@ -120,7 +120,7 @@ class _profileChangePwState extends State<profileChangePw> {
                                   setState(() {_passwordVisible ^= true;});
                                 }),
                           ),
-                          validator: passwordValidator,
+                          validator: passwordValidator ,
                           obscureText: _passwordVisible,
                           onChanged: (val) => password = val,
                         ),
@@ -147,7 +147,7 @@ class _profileChangePwState extends State<profileChangePw> {
                                     setState(() {_passwordVisible ^= true;});
                                   }),
                             ),
-                            validator: (val) => MatchValidator(errorText: 'passwords do not match').validateMatch(val, password),
+                            validator: (val) => MatchValidator(errorText: 'passwords do not match').validateMatch(val!, password),
                             obscureText: _passwordVisible,
                             onChanged: (val) {// setState(() => password = val);
                             }
@@ -168,7 +168,7 @@ class _profileChangePwState extends State<profileChangePw> {
                                 ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(30.0),
-                                  side: BorderSide(color: Colors.blueGrey[100]),
+                                  side: BorderSide(color: Colors.blueGrey[100]!),
                                 ),
                               ),
                               onPressed: () async {
@@ -201,8 +201,8 @@ class _profileChangePwState extends State<profileChangePw> {
   }
 
   Future profilePwChangeAPI() async {
-    String cust_id = await storage.read(key: "cust_id");
-    String token = await storage.read(key: "token");
+    String? cust_id = await storage.read(key: "cust_id");
+    String? token = await storage.read(key: "token");
     var APIURL=Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/change-password");
     Map mapeddata ={
       'customerId': cust_id,

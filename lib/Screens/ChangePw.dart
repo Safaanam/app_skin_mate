@@ -17,7 +17,7 @@ class _changePasswordState extends State<changePassword> {
   TextEditingController _pwController1 = TextEditingController();
   TextEditingController _pwController2 = TextEditingController();
   bool _passwordVisible = true;
-  String password;
+  String password = '';
 
   getEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -113,7 +113,7 @@ class _changePasswordState extends State<changePassword> {
                             setState(() {_passwordVisible ^= true;});
                           }),
                     ),
-                    validator: (val) => MatchValidator(errorText: 'passwords do not match').validateMatch(val, password),
+                    validator: (val) => MatchValidator(errorText: 'passwords do not match').validateMatch(val!, password),
                     obscureText: _passwordVisible,
                     onChanged: (val) {// setState(() => password = val);
                     }
@@ -135,7 +135,7 @@ class _changePasswordState extends State<changePassword> {
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0),
-                          side: BorderSide(color: Colors.blueGrey[100]),
+                          side: BorderSide(color: Colors.blueGrey[100]!),
                         ),
                       ),
                       onPressed: () async {

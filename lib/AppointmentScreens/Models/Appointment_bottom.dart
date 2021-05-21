@@ -65,4 +65,5 @@ Widget appointmentBottomSheet(BuildContext context) {
         )
     ),
   );
+  throw('error in appointment_bottom');
 }

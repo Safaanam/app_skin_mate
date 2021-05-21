@@ -78,4 +78,5 @@ Widget walkIn(BuildContext context) {
           ),
         );
       });
+  throw('error in walk_in');
 }

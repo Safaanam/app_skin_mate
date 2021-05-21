@@ -85,7 +85,7 @@ class _appoitmentCompleteState extends State<appoitmentComplete> {
                                     ),)),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left:180.0,top:30.0),
+                              padding: EdgeInsets.only(left:MediaQuery.of(context).size.width / 2,top:30),
                               child: Container(
                                 width: 90.0,
                                 height: 20.0,
@@ -141,7 +141,7 @@ class _appoitmentCompleteState extends State<appoitmentComplete> {
                                   ),)),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left:90.0),
+                            padding: EdgeInsets.only(left:MediaQuery.of(context).size.width / 3.3, top:12 ),
                             child: Container(
                               width: 98.0,
                               height: 20.0,

@@ -2,21 +2,14 @@ import 'package:app_skin_mate/models/OtpScreens/OtpErrorScreen.dart';
 import 'package:app_skin_mate/models/OtpScreens/OtpSuccessScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-
+final storage = FlutterSecureStorage();
 TextEditingController _otp = TextEditingController();
-var Phonenum;
-getSignupValues() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  Phonenum = prefs.getString('PhoneNumber') ?? '';
-}
-@override
-void initState() {
-  getSignupValues();
-}
+
 
 Widget OtpScreen(BuildContext context) {
   showModalBottomSheet(
@@ -106,13 +99,11 @@ Widget OtpScreen(BuildContext context) {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10.0, top: 32.0),
+                        padding:  EdgeInsets.only(top: 10, left: MediaQuery.of(context).size.width / 15),
                         child: buildTimer(),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 190.0, right: 10.0, top: 32.0, bottom: 0),
+                        padding: EdgeInsets.only(left:MediaQuery.of(context).size.width /1.8,top:10),
                         child: Container(
                             child: Text("Resend OTP",
                               textAlign: TextAlign.center,
@@ -147,7 +138,6 @@ Widget OtpScreen(BuildContext context) {
                           ),
                           onPressed: () {
                             OtpChecker(context);
-                            getSignupValues();
                           },
                         ),
                       ),
@@ -160,15 +150,16 @@ Widget OtpScreen(BuildContext context) {
           ),
         ),
   );
+  throw('error in OtpMainScreen');
 }
 Row buildTimer() {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
+    //mainAxisAlignment: MainAxisAlignment.center,
     children: [
       TweenAnimationBuilder(
         tween: Tween(begin: 60.0, end: 0.0),
         duration: Duration(seconds: 60),
-        builder: (_, value, child) =>
+        builder: (_, dynamic value, child) =>
             Text(
               "0m ${value.toInt()}s",
             ),
@@ -177,11 +168,12 @@ Row buildTimer() {
   );
 }
 Future OtpChecker(BuildContext context) async {
+  String? PhoneNum = await storage.read(key: "PhoneNum");
   var APIURL = Uri.parse(
       "http://65.0.55.180/skinmate/v1.0/customer/mobile-otp-verify");
   Map mapeddata = {
     'otp': _otp.text,
-    'mobileNumber': Phonenum,
+    'mobileNumber': PhoneNum,
   };
   http.Response response = await http.post(APIURL, body: mapeddata);
   var data = jsonDecode(response.body);

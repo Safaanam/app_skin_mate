@@ -93,4 +93,5 @@ Widget openErrorAlert(BuildContext context) {
               ),
             );
           });
+  throw('error in OtpErrorScreen');
 }

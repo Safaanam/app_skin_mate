@@ -3,8 +3,8 @@ import 'package:app_skin_mate/homePage_profileScreens/terms_Conditions.dart';
 import 'package:flutter/material.dart';
 
 class thirdCont {
-  String bodyName;
-  String imageUrl;
+  String? bodyName;
+  String? imageUrl;
 
   thirdCont({
     this.bodyName,
@@ -48,13 +48,13 @@ Widget buildThirdContainer(BuildContext context, int index) {
                   child: Image(
                     height: 50.0,
                     width: 50.0,
-                    image: AssetImage(field3[index].imageUrl),
+                    image: AssetImage(field3[index].imageUrl!),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
             ),
-            title: Text(field3[index].bodyName,
+            title: Text(field3[index].bodyName!,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 13.0,

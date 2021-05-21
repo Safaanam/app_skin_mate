@@ -4,14 +4,14 @@ import 'package:http/http.dart' as http;
 
 final storage = FlutterSecureStorage();
 
-Future<List<subServices>> getSubService(int index) async {
-  List<subServices> subList;
+Future<List<subServices>?> getSubService(int? index) async {
+  List<subServices>? subList;
   await storage.write(key: "service_id", value: index.toString());
   String APIURL =
       'http://65.0.55.180/secured/skinmate/v1.0/subtype-of-service/list/' +
           index.toString();
   var url = Uri.parse(APIURL);
-  String token = await storage.read(key: "token");
+  String? token = await storage.read(key: "token");
   final response = await http.get(
     url,
     headers: {
@@ -33,7 +33,7 @@ Future<List<subServices>> getSubService(int index) async {
 }
 
 class subServices {
-  String subserviceType;
+  String? subserviceType;
 
   subServices(this.subserviceType);
 }

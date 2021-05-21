@@ -3,26 +3,16 @@ import 'package:app_skin_mate/models/EmailOtpScreens/EmailSuccessScreen.dart';
 import 'package:app_skin_mate/models/OtpScreens/OtpErrorScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-var emaill;
+final storage = FlutterSecureStorage();
 TextEditingController _otp = TextEditingController();
 
-@override
-void initState() {
-  getEmail();
-}
-getEmail() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  emaill = prefs.getString('email') ?? '';
-  print(emaill);
-}
 
 Widget OtpEmailScreen(BuildContext context) {
-
   var code;
   showModalBottomSheet(
     useRootNavigator: true,
@@ -116,13 +106,11 @@ Widget OtpEmailScreen(BuildContext context) {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10.0, top: 32.0),
+                        padding:  EdgeInsets.only(top: 10, left: MediaQuery.of(context).size.width / 15),
                         child: buildTimer(),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 190.0, right: 10.0, top: 32.0, bottom: 0),
+                        padding: EdgeInsets.only(left:MediaQuery.of(context).size.width /1.8, top:10 ),
                         child: Container(
                             child: Text("Resend OTP",
                               textAlign: TextAlign.center,
@@ -157,7 +145,6 @@ Widget OtpEmailScreen(BuildContext context) {
                           ),
                           onPressed: () {
                             OtpChecker(context);
-                            getEmail();
                             },
                         ),
                       ),
@@ -170,6 +157,7 @@ Widget OtpEmailScreen(BuildContext context) {
           ),
         ),
   );
+  throw('error in EmailOtpScreen');
 }
 Row buildTimer() {
   return Row(
@@ -178,7 +166,7 @@ Row buildTimer() {
       TweenAnimationBuilder(
         tween: Tween(begin: 60.0, end: 0.0),
         duration: Duration(seconds: 60),
-        builder: (_, value, child) =>
+        builder: (_, dynamic value, child) =>
             Text(
               "0m ${value.toInt()}s",
             ),
@@ -187,17 +175,16 @@ Row buildTimer() {
   );
 }
 Future OtpChecker(BuildContext context) async {
+  String? email = await storage.read(key: "email");
   var APIURL = Uri.parse(
       "http://65.0.55.180/skinmate/v1.0/customer/email-otp-verify");
   Map mapeddata = {
-    'email': emaill,
+    'email': email,
     'otp': _otp.text,
   };
   http.Response response = await http.post(APIURL, body: mapeddata);
   var data = jsonDecode(response.body);
-  print("DATA: ${data}");
   var code = (data[0]['Code']);
-  print(code);
   if (code == 200)
     return EmailSuccessAlert(context);
   else

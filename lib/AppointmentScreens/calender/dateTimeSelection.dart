@@ -153,10 +153,11 @@ class _dateTimeSelectState extends State<dateTimeSelect> {
                 ),
                 SizedBox(height: 10,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     buildTimeContainer("11:30"),
                     buildTimeContainer("11:40"),
+                    buildTimeContainer("11:50"),
                   ],
                 ),
               ],
@@ -257,7 +258,7 @@ class _dateTimeSelectState extends State<dateTimeSelect> {
                       ),),
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
-                      side: BorderSide(color: Colors.blueGrey[100]),
+                      side: BorderSide(color: Colors.blueGrey[100]!),
                     ),
                     textColor: Colors.white,
                     onPressed: () {

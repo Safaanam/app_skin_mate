@@ -15,8 +15,8 @@ class forgotPassword extends StatefulWidget {
 
 class _forgotPasswordState extends State<forgotPassword> {
   var code;
-  var email;
-  String token;
+  late var email;
+  String? token;
   final storage = FlutterSecureStorage();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController _idController = TextEditingController();
@@ -71,7 +71,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                       validator: MultiValidator([
                         RequiredValidator(errorText: "* Required"),
                         EmailValidator(errorText: "Enter valid email id"),
-                      ]),
+                      ]) ,
                       onChanged: (val) {
                         // setState(() => email = val);
                       }),
@@ -90,14 +90,12 @@ class _forgotPasswordState extends State<forgotPassword> {
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0),
-                            side: BorderSide(color: Colors.blueGrey[100]),
+                            side: BorderSide(color: Colors.blueGrey[100]!),
                           ),
                         ),
                         onPressed: () async {
-                          if (formkey.currentState.validate()) {
+                          if (formkey.currentState!.validate()) {
                             EmailOtpApi();
-                            SaveEmail();
-                            getEmail();
                           }
                         }),
                   ),
@@ -115,6 +113,7 @@ class _forgotPasswordState extends State<forgotPassword> {
     var APIURL = Uri.parse("http://65.0.55.180/skinmate/v1.0/customer/registration-send-otp-to-email");
     Map mapeddata = {
       'email': _idController.text,};
+    await storage.write(key: "email", value: _idController.text);
     print("JSON DATA: ${mapeddata}");
     http.Response response = await http.post(APIURL, body: mapeddata);
     var data = jsonDecode(response.body);
@@ -128,14 +127,5 @@ class _forgotPasswordState extends State<forgotPassword> {
       final snackBar = SnackBar(content: Text('Invalid Email'),);
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-  }
-  getEmail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    email = prefs.getString('email') ?? '';
-  }
-  SaveEmail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    email = _idController.text;
-    prefs.setString('email', email);
   }
 }

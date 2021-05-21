@@ -9,7 +9,7 @@ final storage = FlutterSecureStorage();
 var code;
 
 Future<Widget> deleteAlert(BuildContext context) async{
-  String memName = await storage.read(key: "memName");
+  String? memName = await storage.read(key: "memName");
   Navigator.pop(context);
   showDialog(
       context: context,
@@ -136,11 +136,11 @@ Future<Widget> deleteAlert(BuildContext context) async{
           ),
         );
       });
-
+  throw('error in delete_familyMember');
 }
 Future deleteFamilyMember() async {
-  String token = await storage.read(key: "token");
-  String familyProfileId = await storage.read(key: "fam_Id");
+  String? token = await storage.read(key: "token");
+  String? familyProfileId = await storage.read(key: "fam_Id");
   String APIURL= 'http://65.0.55.180/secured/skinmate/v1.0/customer/family-member/delete/'+familyProfileId.toString();
   final http.Response response = await http.delete(
     Uri.parse(APIURL),

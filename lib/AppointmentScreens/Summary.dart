@@ -32,19 +32,19 @@ class _summaryScreenState extends State<summaryScreen> {
     ListItem(3, "Zuha Fathima"),
   ];
 
-  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-  ListItem _selectedItem;
+  List<DropdownMenuItem<ListItem>>? _dropdownMenuItems;
+  ListItem? _selectedItem;
 
   @override
   void initState() {
     super.initState();
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
-    _selectedItem = _dropdownMenuItems[0].value;
+    _selectedItem = _dropdownMenuItems![0].value;
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<ListItem>> items = List();
-    for (ListItem listItem in listItems) {
+    List<DropdownMenuItem<ListItem>> items = [];
+    for (ListItem listItem in listItems as Iterable<ListItem>) {
       items.add(
         DropdownMenuItem(
           child: Text(listItem.name),
@@ -79,45 +79,42 @@ class _summaryScreenState extends State<summaryScreen> {
         child: Form(
           key: formkey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Divider(height: 20, thickness: 2, indent: 5, endIndent: 5, color: Color(0xffE5E7E9),),
-              Container(padding: EdgeInsets.only(left: 15),
+              Container(padding: EdgeInsets.only(left: 10,right: 10,top: 15),
                 height: 80,
+                width: MediaQuery.of(context).size.width,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text("Service",
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              color: Color(0xff25414A).withOpacity(0.5)
-                          ),),
-                      ],),
+                    Text("Service",
+                      style: TextStyle(
+                          fontSize: 12.0,
+                          color: Color(0xff25414A).withOpacity(0.5)
+                      ),),
                     SizedBox(height: 10,),
-                    Row(
-                      children: [
-                        Text("$service",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0,
-                              color: Color(0xff25414A)
-                          ),),
-                      ],),
+                    Text("$service",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.0,
+                          color: Color(0xff25414A)
+                      ),),
                   ],),
               ),
               Divider(height: 20, thickness: 2, indent: 5, endIndent: 5, color: Color(0xffE5E7E9),),
-              Container(padding: EdgeInsets.only(left: 15),
+              Container(padding: EdgeInsets.only(left: 10,right: 10,top:15),
+                width: MediaQuery.of(context).size.width,
                 height: 80,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text("Date & Time",
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              color: Color(0xff25414A).withOpacity(0.5)
-                          ),),
-                      ],),
+                    Text("Date & Time",
+                      style: TextStyle(
+                          fontSize: 14.0,
+                          color: Color(0xff25414A).withOpacity(0.5)
+                      ),),
                     SizedBox(height: 10,),
                     Row(
                       children: [
@@ -136,9 +133,11 @@ class _summaryScreenState extends State<summaryScreen> {
                   ],),
               ),
               Divider(height: 20, thickness: 2, indent: 5, endIndent: 5, color: Color(0xffE5E7E9),),
-              Container(padding: EdgeInsets.only(left: 15),
+              Container(padding: EdgeInsets.only(left: 10, right: 10),
                 height: 225,
+                width: MediaQuery.of(context).size.width,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20,),
                     Row(
@@ -150,51 +149,42 @@ class _summaryScreenState extends State<summaryScreen> {
                           ),),
                       ],),
                     SizedBox(height: 10,),
-                    Row(
-                      children: [
-                        Container(
-                          height: 44,
-                          width: 336,
-                          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7.0),
-                              border: Border.all(
-                                style: BorderStyle.solid,
-                                color: Color(0xffCCD0D5),
-                                width: 1,
-                              )),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                                value: _selectedItem,
-                                items: _dropdownMenuItems,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedItem = value;
-                                  });
-                                }),
-                          ),
-                        ),
-                      ],),
+                    Container(
+                      height: 44,
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7.0),
+                          border: Border.all(
+                            style: BorderStyle.solid,
+                            color: Color(0xffCCD0D5),
+                            width: 1,
+                          )),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                            value: _selectedItem,
+                            items: _dropdownMenuItems,
+                            onChanged: (dynamic value) {
+                              setState(() {
+                                _selectedItem = value;
+                              });
+                            }),
+                      ),
+                    ),
                     SizedBox(height: 25,),
-                    Row(
-                      children: [
-                        Text("Please provide Insurance details:",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                              fontSize: 14.0,
-                              color: Color(0xff25414A)
-                          ),),
-                      ],),
+                    Text("Please provide Insurance details:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                          fontSize: 14.0,
+                          color: Color(0xff25414A)
+                      ),),
                     SizedBox(height: 10,),
-                    Row(
-                      children: [
-                        Text("Insurance",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w200,
-                              fontSize: 14.0,
-                              color: Color(0xff02122C).withOpacity(0.6)
-                          ),),
-                      ],),
+                    Text("Insurance",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w200,
+                          fontSize: 14.0,
+                          color: Color(0xff02122C).withOpacity(0.6)
+                      ),),
                     SizedBox(height:5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -209,7 +199,7 @@ class _summaryScreenState extends State<summaryScreen> {
                                 fontSize: 12.0,
                                 color: Color(0xff02122C)
                             ),),
-                            onChanged: (val) {
+                            onChanged: (dynamic val) {
                               setState(() {
                                 id1 = 0;
                               });
@@ -228,7 +218,7 @@ class _summaryScreenState extends State<summaryScreen> {
                                 fontSize: 12.0,
                                 color: Color(0xff02122C)
                             ),),
-                            onChanged: (val) {
+                            onChanged: (dynamic val) {
                               setState(() {
                                 id1 = 1;
                               });
@@ -242,7 +232,10 @@ class _summaryScreenState extends State<summaryScreen> {
                   ],),
               ),
               Divider(height: 20, thickness: 2, indent: 5, endIndent: 5, color: Color(0xffE5E7E9),),
-              Container(padding: EdgeInsets.only(left: 15),height: 199, width: 375,
+              Container(
+                padding: EdgeInsets.only(left: 10,right: 10),
+                height: 199,
+                width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
                   SizedBox(height: 10,),
@@ -257,7 +250,7 @@ class _summaryScreenState extends State<summaryScreen> {
                       ],),
                     SizedBox(height:5),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center ,
                       children: <Widget>[
                         Expanded(
                           flex: 1,
@@ -269,7 +262,7 @@ class _summaryScreenState extends State<summaryScreen> {
                                 fontSize: 12.0,
                                 color: Color(0xff02122C)
                             ),),
-                            onChanged: (val) {
+                            onChanged: (dynamic val) {
                               setState(() {
                                 id2 = 0;
                               });
@@ -288,7 +281,7 @@ class _summaryScreenState extends State<summaryScreen> {
                                 fontSize: 12.0,
                                 color: Color(0xff02122C)
                             ),),
-                            onChanged: (val) {
+                            onChanged: (dynamic val) {
                               setState(() {
                                 id2 = 1;
                               });
@@ -311,7 +304,7 @@ class _summaryScreenState extends State<summaryScreen> {
                       ],),
                     SizedBox(height: 10,),
                     Container(
-                      width: 335,
+                      width: MediaQuery.of(context).size.width,
                       height: 44,
                       child: TextFormField(
                           controller: _insuranceController,
@@ -336,22 +329,20 @@ class _summaryScreenState extends State<summaryScreen> {
                 ],),
               ),
               Divider(height: 20, thickness: 2, indent: 5, endIndent: 5, color: Color(0xffE5E7E9),),
-              Container(padding: EdgeInsets.only(left: 15),height: 200, width: 375,
+              Container(padding: EdgeInsets.only(left: 10, right:10),height: 200,
+                width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
                   SizedBox(height: 10,),
-                  Row(
-                    children: [
-                      Text("Comments (if any)",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w200,
-                          fontSize: 14.0,
-                          color: Color(0xff02122C).withOpacity(0.6)
-                      ),),
-                  ],),
+                  Text("Comments (if any)",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w200,
+                      fontSize: 14.0,
+                      color: Color(0xff02122C).withOpacity(0.6)
+                  ),),
                   SizedBox(height:5),
                     Container(
-                      width: 335,
+                      width: MediaQuery.of(context).size.width,
                       height: 104,
                       child: TextFormField(
                         maxLines: 10,
@@ -376,8 +367,9 @@ class _summaryScreenState extends State<summaryScreen> {
                     ),
                 ]),
               ),
-              SizedBox(
-                width: 335,
+              Container(
+                padding: EdgeInsets.only(left: 10, right:10),
+                width: MediaQuery.of(context).size.width,
                 height: 50,
                 child: ElevatedButton(
                   child: Text('CONFIRM',style: TextStyle(

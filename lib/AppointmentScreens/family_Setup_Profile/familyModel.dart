@@ -11,7 +11,7 @@ Future<List<familyMembers>> getFamilyInfo() async {
   var cust_Id = await storage.read(key: "cust_id");
   String APIURL = 'http://65.0.55.180/secured/skinmate/v1.0/customer/family-member/list/'+cust_Id.toString();
   var url = Uri.parse(APIURL);
-  String token = await storage.read(key: "token");
+  String? token = await storage.read(key: "token");
   final response = await http.get(
     url,
     headers: {
@@ -21,20 +21,20 @@ Future<List<familyMembers>> getFamilyInfo() async {
   );
   var ConvertedData = jsonDecode(response.body);
   var code = (ConvertedData[0]['Code']);
-  var familyList = (ConvertedData[0]["responseInformation"]) as List;
+  var familyList = (ConvertedData[0]["responseInformation"]) as List?;
   if(code == 200 && familyList != null) {
     famList = familyList.map<familyMembers>((json) => familyMembers.fromJson(json)).toList();
     return famList;
   }
-  else print('error in fetching familyLists');
+  else throw('error in fetching familyLists');
 }
 
 
 class familyMembers {
 
-  int familyProfileId;
-  String firstName;
-  String lastName;
+  int? familyProfileId;
+  String? firstName;
+  String? lastName;
 
   familyMembers({this.familyProfileId, this.firstName, this.lastName});
 
@@ -115,4 +115,5 @@ Widget bottomscreen(BuildContext context) {
         )
     ),
   );
+  throw('error in familyModel');
 }

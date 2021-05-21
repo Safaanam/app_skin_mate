@@ -14,7 +14,7 @@ class scheduleAppoitment extends StatefulWidget {
 }
 
 class _scheduleAppoitmentState extends State<scheduleAppoitment> {
-  Future<List<subServices>> subserve;
+  Future<List<subServices>>? subserve;
   bool isSelected = false;
 
   @override
@@ -22,7 +22,7 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
   }
   @override
   Widget build(BuildContext context) {
-    var selectedId = (ModalRoute.of(context).settings.arguments as Map)["selectedId"];
+    var selectedId = (ModalRoute.of(context)!.settings.arguments as Map)["selectedId"];
     return Scaffold(
           appBar: AppBar(
             leading: Container(
@@ -61,7 +61,7 @@ class _scheduleAppoitmentState extends State<scheduleAppoitment> {
                   ),
                 ),
                 SizedBox(height:20.0),
-                FutureBuilder<List<subServices>>(
+                FutureBuilder<List<subServices>?>(
                   future: getSubService(selectedId),
                     builder:(context, AsyncSnapshot snapshot) {
                     if (!snapshot.hasData) {

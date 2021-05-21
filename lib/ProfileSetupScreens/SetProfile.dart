@@ -17,13 +17,13 @@ class SetProfile extends StatefulWidget {
 class _SetProfileState extends State<SetProfile> {
   final storage = FlutterSecureStorage();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  List<Gender> genders = new List<Gender>();
-  DateTime _selectedDate;
-  Position _currentPosition;
-  String _currentAddress;
-  String Phonenum;
-  String emailll;
-  String pasword;
+  List<Gender> genders = <Gender>[];
+  DateTime? _selectedDate;
+  late Position _currentPosition;
+  String? _currentAddress;
+  String? Phonenum;
+  String? emailll;
+  String? pasword;
   bool Genderselected= false;
   var gender;
   var flutter;
@@ -74,10 +74,10 @@ class _SetProfileState extends State<SetProfile> {
       emailll = prefs.getString('email') ?? '';
       pasword = prefs.getString('password') ?? '';
   }
-  String validateMobile(String value) {
+  String? validateMobile(String? value) {
     String patttern = r'^(?:[+0]9)?[0-9]{10}$';
     RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
+    if (value!.length == 0) {
       return 'Please Enter Phone Number';
     }
     else if (!regExp.hasMatch(value)) {
@@ -262,9 +262,9 @@ class _SetProfileState extends State<SetProfile> {
                             child: new Text(value),
                           );
                         }).toList(),
-                        onChanged: (String data) {
+                        onChanged: (String? data) {
                           setState(() {
-                            _bloodGroup.text = data;
+                            _bloodGroup.text = data!;
                           });
                         },
                       )
@@ -280,7 +280,7 @@ class _SetProfileState extends State<SetProfile> {
                         color: Color(0xff02122C)
                     ),),
                   Padding(
-                    padding: const EdgeInsets.only(left: 70.0),
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3.3),
                     child: Container(
                       child:IconButton(
                           icon: Icon(Icons.my_location_sharp),
@@ -288,7 +288,7 @@ class _SetProfileState extends State<SetProfile> {
                             _getCurrentLocation();
                             setState(() {
                               if (_currentAddress != null) {
-                                _location.text= (_currentAddress);
+                                _location.text= _currentAddress!;
                               }
                             });
                           }),
@@ -481,7 +481,7 @@ class _SetProfileState extends State<SetProfile> {
                             );
                             ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }
-                        else if(formkey.currentState.validate()) {
+                        else if(formkey.currentState!.validate()) {
                           registerUser();
                         };
                       },
@@ -511,12 +511,12 @@ class _SetProfileState extends State<SetProfile> {
     );
   }
   _selectDate(BuildContext context) async {
-    DateTime newSelectedDate = await showDatePicker(
+    DateTime? newSelectedDate = await showDatePicker(
         context: context,
-        initialDate: _selectedDate != null ? _selectedDate : DateTime.now(),
+        initialDate: _selectedDate != null ? _selectedDate! : DateTime.now(),
         firstDate: DateTime(2000),
         lastDate: DateTime(2040),
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return Theme(
             data: ThemeData.dark().copyWith(
               colorScheme: ColorScheme.dark(
@@ -527,13 +527,13 @@ class _SetProfileState extends State<SetProfile> {
               ),
               dialogBackgroundColor: Colors.white,
             ),
-            child: child,
+            child: child!,
           );
         });
     if (newSelectedDate != null) {
       _selectedDate = newSelectedDate;
       _dob
-          ..text = DateFormat('yyyy-MM-dd').format(_selectedDate)
+          ..text = DateFormat('yyyy-MM-dd').format(_selectedDate!)
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: _dob.text.length,
             affinity: TextAffinity.upstream));

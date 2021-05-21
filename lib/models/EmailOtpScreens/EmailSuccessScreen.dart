@@ -101,4 +101,5 @@ Widget EmailSuccessAlert(BuildContext context) {
           ),
         );
       });
+  throw('error in EmailSuccessScreen');
 }

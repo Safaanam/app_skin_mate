@@ -15,7 +15,7 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  List<Services> serviceList;
+  List<Services>? serviceList;
   bool hasAppointments = true;
   @override
   void initState(){
@@ -89,7 +89,7 @@ class _homePageState extends State<homePage> {
                     return GridView.builder(
                       physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: snapshot.data.length,
+                      itemCount: snapshot.data!.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 1.0,
@@ -97,7 +97,7 @@ class _homePageState extends State<homePage> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              Navigator.of(context).pushNamed('/schedule',  arguments: {'selectedId': serviceList[index].serviceId},);
+                              Navigator.of(context).pushNamed('/schedule',  arguments: {'selectedId': serviceList![index].serviceId},);
                             },
                             child: Container(
                               margin: EdgeInsets.only(left: 20.0,right: 20.0),
@@ -121,7 +121,7 @@ class _homePageState extends State<homePage> {
                                     color: Color(0xff759CAD),
                                     size: 50.0,
                                   ),
-                                  Text("${snapshot.data[index].serviceType}",
+                                  Text("${snapshot.data![index].serviceType}",
                                       //services[index].serviceName,
                                       style:
                                       TextStyle(fontSize: 12, color: Color(0xFF759CAD)),

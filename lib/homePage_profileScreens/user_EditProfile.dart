@@ -18,11 +18,11 @@ class user_EditProfile extends StatefulWidget {
 class _user_EditProfileState extends State<user_EditProfile> {
   var data;
   var cust_Id;
-  String token;
+  String? token;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  List<Gender> genders = new List<Gender>();
-  Position _currentPosition;
-  String _currentAddress;
+  List<Gender> genders = <Gender>[];
+  late Position _currentPosition;
+  String? _currentAddress;
   var genderSelected;
   var gender;
   var code;
@@ -67,10 +67,10 @@ class _user_EditProfileState extends State<user_EditProfile> {
       setState(() {}); // setState every time text changes
     });
   }
-  String validateMobile(String value) {
+  String? validateMobile(String? value) {
     String patttern = r'^(?:[+0]9)?[0-9]{10}$';
     RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
+    if (value!.length == 0) {
       return 'Please Enter Phone Number';
     }
     else if (!regExp.hasMatch(value)) {
@@ -235,7 +235,7 @@ class _user_EditProfileState extends State<user_EditProfile> {
                         color: Color(0xff02122C)
                     ),),
                   Padding(
-                    padding: const EdgeInsets.only(left: 70.0),
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3.3),
                     child: Container(
                       child:IconButton(
                           icon: Icon(Icons.my_location_sharp),
@@ -243,7 +243,7 @@ class _user_EditProfileState extends State<user_EditProfile> {
                             _getCurrentLocation();
                             setState(() {
                               if (_currentAddress != null) {
-                                _location.text= (_currentAddress);
+                                _location.text= _currentAddress!;
                               }
                             });
                           }),
@@ -377,7 +377,7 @@ class _user_EditProfileState extends State<user_EditProfile> {
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
-                      else if(formkey.currentState.validate()) {
+                      else if(formkey.currentState!.validate()) {
                         saveUpdates();
                       };
                     },

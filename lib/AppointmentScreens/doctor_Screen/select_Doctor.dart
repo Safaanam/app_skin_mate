@@ -9,7 +9,7 @@ class doctor_Selection extends StatefulWidget {
 }
 
 class _doctor_SelectionState extends State<doctor_Selection> {
-  Future<List<doctors>> docs;
+  Future<List<doctors>>? docs;
   bool docSelected= false;
   var docname;
   int _selectedIndex = 0;

@@ -93,8 +93,7 @@ class _family_MembersState extends State<family_Members> {
                                 child: Row(
                                   children: [
                                     Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0, right: 40.0),
+                                        padding: EdgeInsets.only(left: 30.0, right: MediaQuery.of(context).size.width / 12),
                                         child: Center(
                                           child: Image(
                                             height: 50.0,
@@ -103,7 +102,7 @@ class _family_MembersState extends State<family_Members> {
                                           ),
                                         )),
                                     Padding(
-                                      padding: const EdgeInsets.only(),
+                                      padding: const EdgeInsets.only(top:25,bottom:25),
                                       child: Container(
                                         height: 50.0,
                                         width: 80.0,
@@ -116,27 +115,24 @@ class _family_MembersState extends State<family_Members> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 110.0, bottom: 10.0),
-                                      child: Container(
-                                        child: GestureDetector(
-                                            onTap: () async{
-                                              var fam_Id= snapshot.data[index].familyProfileId.toString();
-                                              memName= snapshot.data[index].firstName + " " + snapshot.data[index].lastName;
-                                              await storage.write(key: "fam_Id", value: fam_Id);
-                                              await storage.write(key: "memName", value: memName);
-                                              bottomscreen(context);
-                                            },
-                                            child: Text(
-                                              "...",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 30.0,
-                                                color: Color(0XFF687181),
-                                              ),
-                                            )),
-                                      ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width /2.7,bottom: 25),
+                                      child: GestureDetector(
+                                          onTap: () async{
+                                            var fam_Id= snapshot.data[index].familyProfileId.toString();
+                                            memName= snapshot.data[index].firstName + " " + snapshot.data[index].lastName;
+                                            await storage.write(key: "fam_Id", value: fam_Id);
+                                            await storage.write(key: "memName", value: memName);
+                                            bottomscreen(context);
+                                          },
+                                          child: Text(
+                                            "...",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 30.0,
+                                              color: Color(0XFF687181),
+                                            ),
+                                          )),
                                     ),
                                   ],
                                 ),

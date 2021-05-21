@@ -19,7 +19,7 @@ class Services {
 
 
 Future<List<Services>> fetchServices() async {
-  String token = await storage.read(key: "token");
+  String? token = await storage.read(key: "token");
   List<Services> list;
 
   final response = await http.get(
@@ -30,17 +30,12 @@ Future<List<Services>> fetchServices() async {
       });
  var ConvertedData = jsonDecode(response.body);
  var code = (ConvertedData[0]['Code']);
- var rest = ConvertedData[0]["responseInformation"] as List;
+ var rest = ConvertedData[0]["responseInformation"] as List?;
 
-  if (token != null) {
-
-    if(code == 200){
-      list = rest.map<Services>((json) => Services.fromJson(json)).toList();
+  if (token != null && code == 200) {
+      list = rest!.map<Services>((json) => Services.fromJson(json)).toList();
       return list;
-    }
   }
-  else {
-    print("error in token");
-  }
-
+  else
+    throw("some error in fetchServices");
 }

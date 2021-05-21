@@ -15,7 +15,7 @@ class addInsurance extends StatefulWidget {
 
 class _addInsuranceState extends State<addInsurance> {
   var cust_Id;
-  String token;
+  String? token;
   TextEditingController _insurance = TextEditingController();
   @override
   void initState() {

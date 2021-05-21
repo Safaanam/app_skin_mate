@@ -8,7 +8,7 @@ class checkIn extends StatefulWidget {
 }
 
 class _checkInState extends State<checkIn> {
-  List<checkInn> problems = new List<checkInn>();
+  List<checkInn> problems = <checkInn>[];
   bool probSelected=false;
   @override
   void initState() {

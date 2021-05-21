@@ -20,13 +20,13 @@ class familyEdit extends StatefulWidget {
 class _familyEditState extends State<familyEdit> {
   var data;
   var cust_Id;
-  DateTime _selectedDate;
+  DateTime? _selectedDate;
   bool Genderselected= false;
-  String token;
+  String? token;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  List<Gender> genders = new List<Gender>();
-  Position _currentPosition;
-  String _currentAddress;
+  List<Gender> genders = <Gender>[];
+  late Position _currentPosition;
+  String? _currentAddress;
   var genderSelected;
   var gender;
   var code;
@@ -75,10 +75,10 @@ class _familyEditState extends State<familyEdit> {
       setState(() {}); // setState every time text changes
     });
   }
-  String validateMobile(String value) {
+  String? validateMobile(String? value) {
     String patttern = r'^(?:[+0]9)?[0-9]{10}$';
     RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
+    if (value!.length == 0) {
       return 'Please Enter Phone Number';
     }
     else if (!regExp.hasMatch(value)) {
@@ -247,9 +247,9 @@ class _familyEditState extends State<familyEdit> {
                             child: new Text(value),
                           );
                         }).toList(),
-                        onChanged: (String data) {
+                        onChanged: (String? data) {
                           setState(() {
-                            _bloodGroup.text = data;
+                            _bloodGroup.text = data!;
                           });
                         },
                       )
@@ -292,7 +292,7 @@ class _familyEditState extends State<familyEdit> {
                         color: Color(0xff02122C)
                     ),),
                   Padding(
-                    padding: const EdgeInsets.only(left: 70.0),
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3.3),
                     child: Container(
                       child:IconButton(
                           icon: Icon(Icons.my_location_sharp),
@@ -300,7 +300,7 @@ class _familyEditState extends State<familyEdit> {
                             _getCurrentLocation();
                             setState(() {
                               if (_currentAddress != null) {
-                                _location.text= (_currentAddress);
+                                _location.text= _currentAddress!;
                               }
                             });
                           }),
@@ -434,7 +434,7 @@ class _familyEditState extends State<familyEdit> {
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
-                      else if(formkey.currentState.validate()) {
+                      else if(formkey.currentState!.validate()) {
                         saveFamilyUpdates();
                       };
                     },
@@ -462,12 +462,12 @@ class _familyEditState extends State<familyEdit> {
 
   }
   _selectDate(BuildContext context) async {
-    DateTime newSelectedDate = await showDatePicker(
+    DateTime? newSelectedDate = await showDatePicker(
         context: context,
-        initialDate: _selectedDate != null ? _selectedDate : DateTime.now(),
+        initialDate: _selectedDate != null ? _selectedDate! : DateTime.now(),
         firstDate: DateTime(2000),
         lastDate: DateTime(2040),
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return Theme(
             data: ThemeData.dark().copyWith(
               colorScheme: ColorScheme.dark(
@@ -478,13 +478,13 @@ class _familyEditState extends State<familyEdit> {
               ),
               dialogBackgroundColor: Colors.white,
             ),
-            child: child,
+            child: child!,
           );
         });
     if (newSelectedDate != null) {
       _selectedDate = newSelectedDate;
       _dob
-        ..text = DateFormat('yyyy-MM-dd').format(_selectedDate)
+        ..text = DateFormat('yyyy-MM-dd').format(_selectedDate!)
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: _dob.text.length,
             affinity: TextAffinity.upstream));
@@ -520,7 +520,7 @@ class _familyEditState extends State<familyEdit> {
     }
   }
   Future viewFamilyDetails() async {
-    String familyProfileId = await storage.read(key: "fam_Id");
+    String? familyProfileId = await storage.read(key: "fam_Id");
     token = await storage.read(key: "token");
     var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/family-profile/view/"+familyProfileId.toString());
     final response = await http.get(
@@ -562,7 +562,7 @@ class _familyEditState extends State<familyEdit> {
     genders.add(new Gender("3","Others",'assets/Profile_Images/other.png' , isSelected3));
   }
   Future saveFamilyUpdates() async {
-    String familyProfileId = await storage.read(key: "fam_Id");
+    String? familyProfileId = await storage.read(key: "fam_Id");
     var APIURL = Uri.parse("http://65.0.55.180/secured/skinmate/v1.0/customer/family-member/edit/"+familyProfileId.toString());
     Map mapeddata = {
       'firstName': _firstName.text,

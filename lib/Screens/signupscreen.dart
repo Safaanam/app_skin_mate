@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:app_skin_mate/ProfileSetupScreens/SetProfile.dart';
 import 'package:app_skin_mate/Screens/SignIn.dart';
 import 'package:app_skin_mate/models/OtpScreens/OtpMainScreen.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -13,11 +14,12 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final storage = FlutterSecureStorage();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool _passwordVisible = true;
-  String Phonenum;
-  String emailll;
-  String pasword;
+  late String Phonenum;
+  late String emailll;
+  late String pasword;
   var code;
   int OTP = 230346;
   TextEditingController _phone = TextEditingController();
@@ -44,10 +46,10 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
-  String validateMobile(String value) {
+  String? validateMobile(String? value) {
     String patttern = r'^(?:[+0]9)?[0-9]{10}$';
     RegExp regExp = new RegExp(patttern);
-    if (value.length == 0) {
+    if (value!.length == 0) {
       return 'Please Enter Phone Number';
     }
     else if (!regExp.hasMatch(value)) {
@@ -256,7 +258,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (formkey.currentState.validate()) {
+                        if (formkey.currentState!.validate()) {
                           DuplicateChecker();
                           SavephoneNuM();
                           getSignupValues();
@@ -347,6 +349,7 @@ class _SignupScreenState extends State<SignupScreen> {
       'phoneNumber': _phone.text,
       'email': _emaill.text,
     };
+    await storage.write(key: "PhoneNum", value: _phone.text);
     http.Response response = await http.post(APIURL, body: mapeddata);
     var data = jsonDecode(response.body);
     var code = (data[0]['Code']);

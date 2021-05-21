@@ -92,4 +92,5 @@ Widget openEmailErrorAlert(BuildContext context) {
           ),
         );
       });
+  throw('error in EmailErrorScreen');
 }

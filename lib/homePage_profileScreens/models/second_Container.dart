@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 
 class secondCont {
-  String bodyName;
-  String imageUrl;
+  String? bodyName;
+  String? imageUrl;
 
   secondCont({
     this.bodyName,
@@ -49,13 +49,13 @@ Widget buildSecondContainer(BuildContext context, int index) {
                   child: Image(
                     height: 50.0,
                     width: 50.0,
-                    image: AssetImage(field2[index].imageUrl),
+                    image: AssetImage(field2[index].imageUrl!),
                     fit: BoxFit.cover,
                   ),
                 ),
              ),
             ),
-            title: Text(field2[index].bodyName,
+            title: Text(field2[index].bodyName!,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 13.0,

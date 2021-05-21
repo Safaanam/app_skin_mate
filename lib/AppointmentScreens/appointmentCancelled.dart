@@ -76,4 +76,5 @@ Widget apointmentCancelledAlert(BuildContext context) {
           ),
         );
       });
+  throw('error in AppointmentCancelled');
 }

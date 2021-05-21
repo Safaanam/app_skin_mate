@@ -70,11 +70,13 @@ class _listAppointmentsState extends State<listAppointments> {
                                   fontSize: 14.0,
                                   color: Color(0xff25414A)
                               ),),
-                              SizedBox(width: 90),
-                              IconButton(icon: Icon(Icons.more_horiz_outlined),
-                                  onPressed: () {
-                                    appointmentBottomSheet(context);
-                                  })
+                              Padding(
+                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3.1),
+                                child: IconButton(icon: Icon(Icons.more_horiz_outlined),
+                                    onPressed: () {
+                                      appointmentBottomSheet(context);
+                                    }),
+                              )
                             ],),
                             Row(children: [Text('$docName, '+'$docDesignation',
                               style: TextStyle(
@@ -87,13 +89,15 @@ class _listAppointmentsState extends State<listAppointments> {
                                 fontSize: 12.0,
                                 color: Color(0xff25414A).withOpacity(0.5),
                               ),),
-                              SizedBox(width: 120),
-                              Text('ID -  '+'$appointmentId',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.0,
-                                  color: Color(0xff25414A),
-                                ),),
+                              Padding(
+                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width /3.0),
+                                child: Text('ID -  '+'$appointmentId',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12.0,
+                                    color: Color(0xff25414A),
+                                  ),),
+                              ),
                             ],),
                             SizedBox(height: 25,),
                             Row(

@@ -149,14 +149,14 @@ class _UserProfileState extends State<UserProfile> {
                                   child: Image(
                                     height: 50.0,
                                     width: 50.0,
-                                    image: AssetImage(field2[0].imageUrl),
+                                    image: AssetImage(field2[0].imageUrl!),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                             ),
                             title: Text(
-                              field2[0].bodyName,
+                              field2[0].bodyName!,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13.0,

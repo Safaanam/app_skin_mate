@@ -200,11 +200,11 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0),
-                              side: BorderSide(color: Colors.blueGrey[100]),
+                              side: BorderSide(color: Colors.blueGrey[100]!),
                             ),
                           ),
                           onPressed: () async {
-                            if (formkey.currentState.validate()) {
+                            if (formkey.currentState!.validate()) {
                               PasswordChecker();
                             }
                           }),
