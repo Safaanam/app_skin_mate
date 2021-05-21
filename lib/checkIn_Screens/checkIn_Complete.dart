@@ -235,7 +235,7 @@ class _checkInCompleteState extends State<checkInComplete> {
                                     ),)),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left:170.0),
+                              padding: EdgeInsets.only(left:MediaQuery.of(context).size.width / 2.2),
                               child: Container(
                                 width: 68.0,
                                 height: 60.0,
@@ -245,8 +245,7 @@ class _checkInCompleteState extends State<checkInComplete> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right:200.0),
+                        Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width / 2.2,left: 10),
                           child: Container(
                               width: 129.0,
                               height: 32.0,

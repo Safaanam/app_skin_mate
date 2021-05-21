@@ -245,7 +245,7 @@ class _checkInMainState extends State<checkInMain> {
                                   ),
                                 ],
                               ),
-                              Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width / 2.2),
+                              Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width / 2.2, left:10),
                                   child: Container(
                                     width: 129.0,
                                     height: 32.0,

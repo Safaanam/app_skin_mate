@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/AppointmentScreens/Models/listAppointments.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:flutter/material.dart';
 
@@ -167,7 +168,7 @@ class _appoitmentCompleteState extends State<appoitmentComplete> {
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => homePage()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => listAppointments()));
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Color(0xff749BAD),

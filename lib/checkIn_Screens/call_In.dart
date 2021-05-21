@@ -1,3 +1,4 @@
+import 'package:app_skin_mate/AppointmentScreens/Models/listAppointments.dart';
 import 'package:app_skin_mate/Screens/homePage.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,7 @@ Widget callIn(BuildContext context) {
                   child: InkWell(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => homePage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => listAppointments()));
                       },
                     child: Container(
                       width: 276.0,

@@ -280,7 +280,7 @@ class _SetProfileState extends State<SetProfile> {
                         color: Color(0xff02122C)
                     ),),
                   Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3.3),
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4.2),
                     child: Container(
                       child:IconButton(
                           icon: Icon(Icons.my_location_sharp),

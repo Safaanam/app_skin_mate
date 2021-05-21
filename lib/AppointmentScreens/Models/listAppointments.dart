@@ -71,7 +71,7 @@ class _listAppointmentsState extends State<listAppointments> {
                                   color: Color(0xff25414A)
                               ),),
                               Padding(
-                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 3.1),
+                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4.2),
                                 child: IconButton(icon: Icon(Icons.more_horiz_outlined),
                                     onPressed: () {
                                       appointmentBottomSheet(context);
